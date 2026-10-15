@@ -1,0 +1,161 @@
+{
+  "entities": {
+    "AdminDoc": {
+      "title": "AdminDoc",
+      "description": "Admin authorization marker document for fast RBAC checks",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["admin", "superadmin"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["email", "role"]
+    },
+    "User": {
+      "title": "User",
+      "description": "Admin user profile with role definition",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["admin", "superadmin"] },
+        "displayName": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["email", "role"]
+    },
+    "Activity": {
+      "title": "Activity",
+      "description": "Solidarity activity or mission carried out by the association",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "photo": { "type": "string" },
+        "desc": { "type": "string" },
+        "quote": { "type": "string" },
+        "quoteAuthor": { "type": "string" },
+        "contexte": { "type": "string" },
+        "actions": { "type": "string" },
+        "resultats": { "type": "string" }
+      },
+      "required": ["id", "title"]
+    },
+    "Cagnotte": {
+      "title": "Cagnotte",
+      "description": "Fundraising campaign with goal, collected amount and status",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "desc": { "type": "string" },
+        "goal": { "type": "number" },
+        "collected": { "type": "number" },
+        "start": { "type": "string" },
+        "end": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "closed"] },
+        "closureReport": { "type": "string" }
+      },
+      "required": ["id", "title", "goal", "status"]
+    },
+    "Stats": {
+      "title": "Stats",
+      "description": "Key impact metrics displayed on the home and about pages",
+      "type": "object",
+      "properties": {
+        "beneficiaries": { "type": "number" },
+        "fundsM": { "type": "number" },
+        "activitiesCount": { "type": "number" },
+        "volunteers": { "type": "number" }
+      },
+      "required": ["beneficiaries", "fundsM", "activitiesCount", "volunteers"]
+    },
+    "VolunteerApplication": {
+      "title": "VolunteerApplication",
+      "description": "Application submitted by a volunteer candidate",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "city": { "type": "string" },
+        "commune": { "type": "string" },
+        "domain": { "type": "string" },
+        "availability": { "type": "string" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "status": { "type": "string", "enum": ["new", "contacted"] }
+      },
+      "required": ["name", "phone", "domain", "availability"]
+    },
+    "Donation": {
+      "title": "Donation",
+      "description": "Donation record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "amount": { "type": "number" },
+        "method": { "type": "string" },
+        "cagnotteTitle": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["amount", "method"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Global application settings such as volunteer recruitment toggle and payment methods",
+      "type": "object",
+      "properties": {
+        "volunteerRecruitmentActive": { "type": "boolean" },
+        "paymentMethods": { "type": "object" }
+      }
+    },
+    "TestConnection": {
+      "title": "TestConnection",
+      "description": "Read-only test document for client connection check",
+      "type": "object",
+      "properties": {
+        "ok": { "type": "boolean" }
+      }
+    }
+  },
+  "firestore": {
+    "/admins/{adminId}": {
+      "schema": "AdminDoc",
+      "description": "Administrative role whitelist marker"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Admin users permitted to access the admin back-office"
+    },
+    "/activities/{activityId}": {
+      "schema": "Activity",
+      "description": "List of solidarity activities"
+    },
+    "/cagnottes/{cagnotteId}": {
+      "schema": "Cagnotte",
+      "description": "List of fundraising cagnottes"
+    },
+    "/stats/{docId}": {
+      "schema": "Stats",
+      "description": "Global impact statistics"
+    },
+    "/settings/{docId}": {
+      "schema": "Settings",
+      "description": "Application settings (volunteer toggle, payment methods)"
+    },
+    "/volunteer_applications/{applicationId}": {
+      "schema": "VolunteerApplication",
+      "description": "Volunteer candidates applications"
+    },
+    "/donations/{donationId}": {
+      "schema": "Donation",
+      "description": "Records of donations"
+    },
+    "/test/{docId}": {
+      "schema": "TestConnection",
+      "description": "Connection test collection"
+    }
+  }
+}

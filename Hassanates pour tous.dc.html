@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/gainlove-design-system-c8b926fb-ed4f-44f3-bcc9-4639053402ec/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/gainlove-design-system-c8b926fb-ed4f-44f3-bcc9-4639053402ec/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/gainlove-design-system-c8b926fb-ed4f-44f3-bcc9-4639053402ec/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/gainlove-design-system-c8b926fb-ed4f-44f3-bcc9-4639053402ec/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/gainlove-design-system-c8b926fb-ed4f-44f3-bcc9-4639053402ec/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="_ds/gainlove-design-system-c8b926fb-ed4f-44f3-bcc9-4639053402ec/_ds_bundle.js"></script>
+  <script src="./image-slot.js"></script>
+  <style>
+    :root {
+      --font-display: 'Inter', 'Helvetica Neue', sans-serif;
+      --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+      --gl-teal: #2FB6E8;
+      --gl-teal-dark: #1D93C4;
+      --gl-teal-tint: #E4F6FD;
+      --gl-blue-dot: #2FB6E8;
+      --accent-secondary: #2FB6E8;
+    }
+    body { margin: 0; background: var(--surface-page); }
+    div::-webkit-scrollbar { width: 0; height: 0; }
+    [data-cta-block] button { width: 100%; justify-content: center; }
+    [style*="var(--font-display)"] { font-weight: 800 !important; letter-spacing: -0.01em; }
+    * { box-sizing: border-box; }
+    a { color: var(--gl-teal); }
+    a:hover { color: var(--gl-teal-dark); }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fillBar { from { width: 0; } to { width: var(--pct); } }
+    @keyframes floatDot { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+    @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes pulseRing { 0% { box-shadow: 0 0 0 0 rgba(47,182,232,0.45); } 70% { box-shadow: 0 0 0 18px rgba(47,182,232,0); } 100% { box-shadow: 0 0 0 0 rgba(47,182,232,0); } }
+    @keyframes shimmer { 0% { background-position: -300px 0; } 100% { background-position: 300px 0; } }
+  </style>
+</helmet>
+
+<div style="font-family:var(--font-body);color:var(--text-primary);background:var(--surface-page);min-height:100vh;">
+
+<sc-if value="{{ isPublic }}" hint-placeholder-val="{{ true }}">
+<div style="{{ pageFrameOuterStyle }}">
+<div style="{{ pageFrameInnerStyle }}" ref="{{ setFrameRef }}">
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+  <header style="position:sticky;top:0;z-index:40;background:var(--gl-black);border-radius:0 0 22px 22px;padding-bottom:18px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px 0;">
+      <button style="width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.35);background:none;display:flex;align-items:center;justify-content:center;cursor:pointer;" onClick="{{ goContact }}">
+        <img src="https://unpkg.com/lucide-static@latest/icons/help-circle.svg" alt="" style="width:16px;height:16px;filter:invert(1);" />
+      </button>
+      <div style="display:flex;align-items:center;gap:8px;cursor:pointer;" onClick="{{ goHome }}">
+        <img src="assets/logo-hassanates.png" alt="" style="width:26px;height:26px;border-radius:50%;" />
+        <span style="font-family:var(--font-display);font-weight:800;font-size:16px;color:#fff;white-space:nowrap;">Hassanates pour tous</span>
+      </div>
+      <button style="width:44px;height:44px;border-radius:50%;border:none;background:none;display:flex;align-items:center;justify-content:center;cursor:pointer;" onClick="{{ goAdminLogin }}">
+        <img src="https://unpkg.com/lucide-static@latest/icons/user.svg" alt="" style="width:18px;height:18px;filter:invert(1);" />
+      </button>
+    </div>
+    <div style="padding:18px 20px 0;">
+      <button style="width:100%;background:#fff;border:none;border-radius:var(--radius-pill);padding:16px 20px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;" onClick="{{ openDonationGeneral }}">
+        <img src="https://unpkg.com/lucide-static@latest/icons/heart-handshake.svg" alt="" style="width:20px;height:20px;flex-shrink:0;" />
+        <span>
+          <span style="display:block;font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--text-primary);">Faire un don</span>
+          <span style="display:block;font-size:12px;color:var(--text-secondary);margin-top:2px;">Choisissez un montant, Wave ou Orange Money</span>
+        </span>
+      </button>
+    </div>
+  </header>
+  </sc-if>
+
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+  <header style="position:sticky;top:0;z-index:40;background:rgba(247,244,238,0.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--border-subtle);transition:box-shadow 0.3s ease;box-shadow:{{ headerShadow }};">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;row-gap:10px;transition:padding 0.3s ease;padding:{{ headerPad }};">
+      <div style="display:flex;align-items:center;gap:10px;cursor:pointer;flex-shrink:0;" onClick="{{ goHome }}">
+        <img src="assets/logo-hassanates.png" alt="Hassanates pour tous" style="border-radius:50%;flex-shrink:0;transition:width 0.3s ease,height 0.3s ease;width:{{ logoSize }};height:{{ logoSize }};" />
+        <span style="font-family:var(--font-display);font-weight:700;font-size:19px;color:var(--gl-black);white-space:nowrap;">Hassanates pour tous</span>
+      </div>
+      <nav style="display:flex;gap:4px;flex-wrap:wrap;order:3;flex-basis:100%;justify-content:center;">
+        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="5">
+          <button style="background:none;border:none;cursor:pointer;font-family:var(--font-body);font-size:13px;text-transform:uppercase;letter-spacing:0.03em;padding:8px 14px;color:{{ item.color }};font-weight:{{ item.weight }};border-bottom:{{ item.underline }};white-space:nowrap;" style-hover="color:var(--gl-teal);" onClick="{{ item.go }}">{{ item.label }}</button>
+        </sc-for>
+      </nav>
+      <div style="display:flex;align-items:center;gap:16px;flex-shrink:0;order:2;">
+        <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,44px" variant="accent" onClick="{{ openDonationGeneral }}">Faire un don</x-import>
+      </div>
+    </div>
+  </header>
+  </sc-if>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main>
+    <section style="position:relative;max-width:1240px;margin:{{ heroSectionMargin }};padding:{{ sectionPad }};">
+      <div style="position:relative;border-radius:var(--radius-lg);overflow:hidden;height:{{ heroHeight }};animation:fadeInUp 0.7s ease both;">
+        <div style="position:absolute;inset:-40px 0;will-change:transform;transform:{{ heroShift }};">
+          <image-slot id="hero-bg" shape="rect" placeholder="Photo d'une activité de l'association" src="assets/photo-01.jpeg"></image-slot>
+        </div>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,21,17,0.1) 0%,rgba(24,21,17,0.68) 100%);pointer-events:none;"></div>
+        <div style="position:absolute;top:56px;left:64px;width:16px;height:16px;border-radius:50%;background:var(--gl-blue-dot);animation:floatDot 4s ease-in-out infinite;"></div>
+        <div style="position:absolute;top:120px;left:120px;width:10px;height:10px;border-radius:50%;background:var(--gl-orange);animation:floatDot 3.2s ease-in-out infinite 0.4s;"></div>
+        <div style="position:absolute;top:90px;right:340px;width:12px;height:12px;border-radius:50%;background:var(--gl-green-dot);animation:floatDot 3.8s ease-in-out infinite 0.8s;"></div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:{{ heroPad }};pointer-events:none;">
+          <div style="font-size:var(--text-eyebrow);font-weight:600;letter-spacing:var(--tracking-eyebrow);text-transform:uppercase;color:var(--gl-teal-tint);margin-bottom:14px;animation:fadeInUp 0.7s ease both 0.1s;">Solidarité en action</div>
+          <h1 style="font-family:var(--font-display);font-weight:700;font-size:{{ heroTitleSize }};line-height:var(--lh-tight);letter-spacing:-0.01em;color:#fff;margin:0 0 20px;max-width:{{ heroTextMax }};animation:fadeInUp 0.7s ease both 0.2s;">Hassanates pour tous</h1>
+          <p style="font-family:var(--font-body);font-size:{{ heroTextSize }};color:#EFEBE2;max-width:{{ heroTextMax }};margin:0 0 28px;line-height:var(--lh-normal);animation:fadeInUp 0.7s ease both 0.3s;">Une association solidaire qui accompagne les familles les plus vulnérables, à travers des actions concrètes menées toute l'année.</p>
+          <div style="display:flex;flex-direction:{{ stackDir }};align-items:{{ heroBtnAlign }};gap:14px;pointer-events:auto;animation:fadeInUp 0.7s ease both 0.4s;">
+            <div data-cta-block style="display:grid;">
+              <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,48px" variant="accent" onClick="{{ openDonationGeneral }}">Faire un don</x-import>
+            </div>
+            <div data-cta-block style="display:grid;">
+              <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,48px" variant="primary" onClick="{{ goActivities }}">Découvrir nos activités</x-import>
+            </div>
+          </div>
+        </div>
+        <div style="display:{{ statCardDisplay }};position:absolute;bottom:56px;right:56px;background:#fff;border-radius:var(--radius-md);padding:22px 26px;box-shadow:var(--shadow-card-hover);min-width:200px;animation:fadeInUp 0.7s ease both 0.5s;">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:30px;color:var(--gl-teal);">{{ heroCagnotte.pct }}%</div>
+          <div style="font-size:13px;color:var(--text-secondary);margin:4px 0 10px;">de l'objectif atteint</div>
+          <div style="height:8px;background:var(--gl-teal-tint);border-radius:4px;overflow:hidden;"><div style="height:100%;background:var(--gl-teal);border-radius:4px;--pct:{{ heroCagnotte.pctWidth }};animation:fillBar 1.4s cubic-bezier(.22,1,.36,1) forwards 0.6s;"></div></div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:8px;">{{ heroCagnotte.title }}</div>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-top:56px;background:var(--gl-black);overflow:hidden;padding:18px 0;">
+      <div style="display:flex;width:max-content;animation:marquee 32s linear infinite;">
+        <div style="display:flex;gap:44px;padding-right:44px;align-items:center;font-family:var(--font-display);font-weight:700;font-size:{{ marqueeSize }};color:#fff;white-space:nowrap;">
+          <span>Tabaski</span><span style="color:var(--gl-teal);">•</span><span>Ramadan</span><span style="color:var(--gl-orange);">•</span><span>Rentrée scolaire</span><span style="color:var(--gl-teal);">•</span><span>Caravane médicale</span><span style="color:var(--gl-orange);">•</span><span>Paniers alimentaires</span><span style="color:var(--gl-teal);">•</span><span>Kits scolaires</span><span style="color:var(--gl-orange);">•</span>
+        </div>
+        <div style="display:flex;gap:44px;padding-right:44px;align-items:center;font-family:var(--font-display);font-weight:700;font-size:{{ marqueeSize }};color:#fff;white-space:nowrap;">
+          <span>Tabaski</span><span style="color:var(--gl-teal);">•</span><span>Ramadan</span><span style="color:var(--gl-orange);">•</span><span>Rentrée scolaire</span><span style="color:var(--gl-teal);">•</span><span>Caravane médicale</span><span style="color:var(--gl-orange);">•</span><span>Paniers alimentaires</span><span style="color:var(--gl-teal);">•</span><span>Kits scolaires</span><span style="color:var(--gl-orange);">•</span>
+        </div>
+      </div>
+    </section>
+
+    <section data-reveal data-counter style="max-width:1240px;margin:{{ sectionMargin }};padding:{{ sectionPad }};display:grid;grid-template-columns:{{ splitCols }};gap:{{ splitGap }};align-items:center;opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s cubic-bezier(.22,1,.36,1);">
+      <div style="border-radius:var(--radius-lg);overflow:hidden;height:380px;">
+        <image-slot id="stats-photo" shape="rect" placeholder="Photo terrain — bénévoles en action" src="assets/photo-02.jpeg"></image-slot>
+      </div>
+      <div>
+        <div style="font-size:var(--text-eyebrow);font-weight:600;color:var(--gl-orange);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);margin-bottom:12px;">Notre impact</div>
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-h2);color:var(--text-primary);margin:0 0 28px;line-height:var(--lh-snug);">Des actions concrètes, mesurées et durables</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;">
+          <sc-for list="{{ statsItems }}" as="stat" hint-placeholder-count="4">
+            <div style="animation:popIn 0.5s ease both;animation-delay:{{ stat.delay }};">
+              <div style="font-family:var(--font-display);font-weight:700;font-size:32px;color:var(--gl-teal);">{{ stat.value }}</div>
+              <div style="font-size:14px;color:var(--text-secondary);margin-top:4px;">{{ stat.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section data-reveal style="max-width:1240px;margin:{{ sectionMarginBottom }};padding:{{ sectionPad }};opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s cubic-bezier(.22,1,.36,1);">
+      <div style="display:flex;flex-direction:{{ stackDir }};justify-content:space-between;align-items:{{ sectionHeadAlign }};gap:18px;margin-bottom:36px;">
+        <div>
+          <div style="font-size:var(--text-eyebrow);font-weight:600;color:var(--gl-orange);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);margin-bottom:10px;">Nos activités</div>
+          <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-h3);color:var(--text-primary);margin:0;">Ce que nous menons sur le terrain</h2>
+        </div>
+        <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,42px" variant="outline" onClick="{{ goActivities }}">Voir toutes les activités</x-import>
+      </div>
+      <div style="display:grid;grid-template-columns:{{ cols3 }};gap:28px;">
+        <sc-for list="{{ homeActivities }}" as="item" hint-placeholder-count="3">
+          <div style="border-radius:var(--radius-md);overflow:hidden;background:var(--surface-card);box-shadow:var(--shadow-card);cursor:pointer;transition:box-shadow 0.2s,transform 0.2s;animation:fadeInUp 0.5s ease both;animation-delay:{{ item.delay }};" style-hover="box-shadow:var(--shadow-card-hover);transform:translateY(-4px);" onClick="{{ item.open }}">
+            <div style="height:190px;overflow:hidden;"><div style="width:100%;height:100%;transition:transform 0.5s cubic-bezier(.22,1,.36,1);" style-hover="transform:scale(1.07);"><image-slot id="{{ item.imgId }}" shape="rect" placeholder="{{ item.title }}" src="{{ item.photo }}"></image-slot></div></div>
+            <div style="padding:22px;">
+              <div style="font-size:12px;font-weight:600;color:var(--gl-teal);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px;">{{ item.category }}</div>
+              <div style="font-family:var(--font-display);font-weight:700;font-size:19px;color:var(--text-primary);margin-bottom:10px;">{{ item.title }}</div>
+              <p style="font-size:14px;color:var(--text-secondary);line-height:var(--lh-normal);margin:0;">{{ item.desc }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section data-reveal style="max-width:1240px;margin:{{ sectionMarginBottom }};padding:{{ sectionPad }};opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s cubic-bezier(.22,1,.36,1);">
+      <div style="margin-bottom:36px;">
+        <div style="font-size:var(--text-eyebrow);font-weight:600;color:var(--gl-orange);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);margin-bottom:10px;">Cagnottes en cours</div>
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-h3);color:var(--text-primary);margin:0;">Participez à nos collectes</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:{{ cols2 }};gap:28px;">
+        <sc-for list="{{ activeCagnottesHome }}" as="c" hint-placeholder-count="2">
+          <div style="border-radius:var(--radius-md);padding:28px;background:var(--surface-card);box-shadow:var(--shadow-card);transition:box-shadow 0.2s,transform 0.2s;animation:fadeInUp 0.5s ease both;" style-hover="box-shadow:var(--shadow-card-hover);transform:translateY(-4px);">
+            <div style="font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--text-primary);margin-bottom:8px;">{{ c.title }}</div>
+            <p style="font-size:14px;color:var(--text-secondary);line-height:var(--lh-normal);margin:0 0 20px;">{{ c.desc }}</p>
+            <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-secondary);margin-bottom:8px;">
+              <span>{{ c.collectedFmt }}</span><span>{{ c.pct }}% de {{ c.goalFmt }}</span>
+            </div>
+            <div style="height:8px;background:var(--gl-teal-tint);border-radius:4px;overflow:hidden;margin-bottom:20px;"><div style="height:100%;background:var(--gl-teal);border-radius:4px;--pct:{{ c.pctWidth }};animation:fillBar 1.4s cubic-bezier(.22,1,.36,1) forwards;"></div></div>
+            <div style="display:flex;flex-direction:{{ stackDir }};gap:12px;">
+              <div data-cta-block style="display:grid;flex:1;">
+                <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,42px" variant="accent" onClick="{{ c.donate }}">Faire un don</x-import>
+              </div>
+              <div data-cta-block style="display:grid;flex:1;">
+                <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,42px" variant="outline" onClick="{{ c.open }}">Voir le détail</x-import>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section data-reveal style="background:var(--gl-teal-tint);padding:{{ bandPad }};opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s cubic-bezier(.22,1,.36,1);">
+      <div style="max-width:1240px;margin:0 auto;">
+        <div style="text-align:center;margin-bottom:48px;">
+          <div style="font-size:var(--text-eyebrow);font-weight:600;color:var(--gl-teal-dark);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);margin-bottom:10px;">Témoignages</div>
+          <h2 style="font-family:var(--font-display);font-weight:700;font-size:var(--text-h3);color:var(--text-primary);margin:0;">Des histoires de solidarité</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:{{ cols3 }};gap:32px;">
+          <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="3">
+            <div style="background:var(--surface-card);border-radius:var(--radius-md);box-shadow:var(--shadow-card);padding:28px;text-align:center;animation:fadeInUp 0.5s ease both;animation-delay:{{ t.delay }};">
+              <div style="width:76px;height:76px;margin:0 auto 18px;"><image-slot id="{{ t.imgId }}" shape="circle" placeholder="Portrait" src="{{ t.photo }}"></image-slot></div>
+              <p style="font-size:14px;color:var(--text-secondary);line-height:var(--lh-normal);margin:0 0 16px;font-style:italic;">"{{ t.quote }}"</p>
+              <div style="font-size:14px;font-weight:600;color:var(--text-primary);">{{ t.name }}</div>
+              <div style="font-size:13px;color:var(--text-secondary);">{{ t.role }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section data-reveal style="position:relative;max-width:1240px;margin:{{ sectionMargin }};padding:{{ sectionPad }};opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s cubic-bezier(.22,1,.36,1);">
+      <div style="position:relative;border-radius:var(--radius-lg);overflow:hidden;height:280px;">
+        <image-slot id="newsletter-bg" shape="rect" placeholder="Photo — familles bénéficiaires" src="assets/photo-06.jpeg"></image-slot>
+        <div style="position:absolute;inset:0;background:rgba(24,21,17,0.62);pointer-events:none;"></div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px;">
+          <h3 style="font-family:var(--font-display);font-weight:700;font-size:26px;color:#fff;margin:0 0 10px;">Restez informés de nos actions</h3>
+          <p style="font-size:14px;color:#EFEBE2;margin:0 0 22px;">Recevez nos actualités et nos cagnottes par e-mail.</p>
+          <div style="display:flex;flex-direction:{{ stackDir }};gap:10px;pointer-events:auto;">
+            <input type="email" placeholder="Votre adresse e-mail" style="border:none;border-radius:var(--radius-pill);padding:13px 18px;font-size:14px;width:{{ newsletterInputWidth }};font-family:var(--font-body);" />
+            <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,48px" variant="accent">S'inscrire</x-import>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+  <main style="max-width:1240px;margin:0 auto;padding:{{ mainPad }};animation:fadeInUp 0.5s ease both;">
+    <div style="font-size:var(--text-eyebrow);font-weight:600;color:var(--gl-orange);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);margin-bottom:12px;">Découvrir l'association</div>
+    <h1 style="font-family:var(--font-display);font-weight:700;font-size:{{ pageTitleSize }};color:var(--text-primary);margin:0 0 40px;max-width:700px;">Notre histoire, notre mission, nos valeurs</h1>
+    <div style="display:grid;grid-template-columns:{{ splitCols }};gap:{{ splitGap }};align-items:center;margin-bottom:{{ blockGap }};">
+      <div style="border-radius:var(--radius-lg);overflow:hidden;height:360px;"><image-slot id="about-history" shape="rect" placeholder="Photo — origines de l'association" src="assets/photo-09.jpeg"></image-slot></div>
+      <div>
+        <h2 style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--text-primary);margin:0 0 16px;">Notre histoire</h2>
+        <p style="font-size:15px;color:var(--text-secondary);line-height:var(--lh-normal);margin:0 0 14px;">Hassanates pour tous est née de la volonté d'un groupe de bénévoles d'apporter une aide concrète aux familles les plus vulnérables de leur communauté. Ce qui a commencé par des collectes ponctuelles s'est structuré, au fil des années, en une association organisée et reconnue.</p>
+        <p style="font-size:15px;color:var(--text-secondary);line-height:var(--lh-normal);margin:0;">Aujourd'hui, l'association mène des actions régulières autour des grandes occasions religieuses et solidaires, tout en développant de nouveaux projets au service des plus démunis.</p>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:{{ cols3 }};gap:28px;margin-bottom:80px;">
+      <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.FeatureCard" hint-size="auto,220px" icon="https://unpkg.com/lucide-static@latest/icons/target.svg" title="Mission">Accompagner durablement les familles vulnérables à travers des actions solidaires concrètes et transparentes.</x-import>
+      <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.FeatureCard" hint-size="auto,220px" icon="https://unpkg.com/lucide-static@latest/icons/eye.svg" title="Vision">Une société où la solidarité permet à chacun de vivre dans la dignité, quelles que soient ses ressources.</x-import>
+      <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.FeatureCard" hint-size="auto,220px" icon="https://unpkg.com/lucide-static@latest/icons/heart-handshake.svg" title="Valeurs">Transparence, proximité et engagement, au service des personnes que nous accompagnons.</x-import>
+    </div>
+    <div style="border-top:1px solid var(--border-subtle);padding-top:48px;">
+      <h2 style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--text-primary);margin:0 0 28px;">Nos réalisations en chiffres</h2>
+      <div style="display:grid;grid-template-columns:{{ cols4 }};gap:28px;">
+        <sc-for list="{{ statsItems }}" as="stat" hint-placeholder-count="4">
+          <div style="animation:popIn 0.5s ease both;animation-delay:{{ stat.delay }};">
+            <div style="font-family:var(--font-display);font-weight:700;font-size:36px;color:var(--gl-teal);">{{ stat.value }}</div>
+            <div style="font-size:14px;color:var(--text-secondary);margin-top:4px;">{{ stat.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isActivities }}" hint-placeholder-val="{{ false }}">
+  <main style="max-width:1240px;margin:0 auto;padding:{{ mainPad }};animation:fadeInUp 0.5s ease both;">
+    <div style="font-size:var(--text-eyebrow);font-weight:600;color:var(--gl-orange);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);margin-bottom:12px;">Activités</div>
+    <h1 style="font-family:var(--font-display);font-weight:700;font-size:{{ pageTitleSize }};color:var(--text-primary);margin:0 0 44px;max-width:700px;">Nos actions sur le terrain</h1>
+    <div style="display:grid;grid-template-columns:{{ cols3 }};gap:28px;">
+      <sc-for list="{{ allActivities }}" as="item" hint-placeholder-count="4">
+        <div style="border-radius:var(--radius-md);overflow:hidden;background:var(--surface-card);box-shadow:var(--shadow-card);cursor:pointer;transition:box-shadow 0.2s,transform 0.2s;animation:fadeInUp 0.5s ease both;animation-delay:{{ item.delay }};" style-hover="box-shadow:var(--shadow-card-hover);transform:translateY(-4px);" onClick="{{ item.open }}">
+          <div style="height:190px;overflow:hidden;"><div style="width:100%;height:100%;transition:transform 0.5s cubic-bezier(.22,1,.36,1);" style-hover="transform:scale(1.07);"><image-slot id="{{ item.imgId }}" shape="rect" placeholder="{{ item.title }}" src="{{ item.photo }}"></image-slot></div></div>
+          <div style="padding:22px;">
+            <div style="font-size:12px;font-weight:600;color:var(--gl-teal);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px;">{{ item.category }}</div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:19px;color:var(--text-primary);margin-bottom:10px;">{{ item.title }}</div>
+            <p style="font-size:14px;color:var(--text-secondary);line-height:var(--lh-normal);margin:0;">{{ item.desc }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isActivityDetail }}" hint-placeholder-val="{{ false }}">
+  <main style="max-width:1000px;margin:0 auto;padding:{{ mainPad }};animation:fadeInUp 0.5s ease both;">
+    <button style="background:none;border:none;cursor:pointer;font-size:14px;color:var(--text-secondary);padding:0;margin-bottom:24px;" style-hover="color:var(--gl-teal);" onClick="{{ goActivities }}">&larr; Retour aux activités</button>
+    <div style="font-size:var(--text-eyebrow);font-weight:600;color:var(--gl-orange);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);margin-bottom:12px;">{{ activeActivity.category }}</div>
+    <h1 style="font-family:var(--font-display);font-weight:700;font-size:{{ pageTitleSize }};color:var(--text-primary);margin:0 0 32px;">{{ activeActivity.title }}</h1>
+    <div style="border-radius:var(--radius-lg);overflow:hidden;height:{{ detailHeroHeight }};margin-bottom:36px;"><image-slot id="{{ activeActivity.imgId }}" shape="rect" placeholder="Photo principale" src="{{ activeActivity.photo }}"></image-slot></div>
+    <p style="font-size:16px;color:var(--text-secondary);line-height:1.75;margin:0 0 40px;">{{ activeActivity.desc }}</p>
+    <div style="background:var(--gl-teal-tint);border-radius:var(--radius-md);padding:32px;margin-bottom:40px;">
+      <p style="font-size:17px;color:var(--gl-teal-dark);line-height:var(--lh-normal);margin:0;font-style:italic;">"{{ activeActivity.quote }}"</p>
+      <div style="font-size:14px;font-weight:600;color:var(--text-primary);margin-top:14px;">— {{ activeActivity.quoteAuthor }}</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1px;background:var(--border-subtle);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:48px;">
+      <sc-for list="{{ accItems }}" as="acc" hint-placeholder-count="3">
+        <div style="background:var(--surface-card);">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;cursor:pointer;" onClick="{{ acc.toggle }}">
+            <span style="font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--text-primary);">{{ acc.label }}</span>
+            <span style="font-size:20px;color:var(--gl-teal);">{{ acc.icon }}</span>
+          </div>
+          <sc-if value="{{ acc.open }}" hint-placeholder-val="{{ false }}">
+            <p style="padding:0 24px 22px;font-size:14px;color:var(--text-secondary);line-height:var(--lh-normal);margin:0;animation:fadeInUp 0.3s ease both;">{{ acc.content }}</p>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <h3 style="font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--text-primary);margin:0 0 20px;">Galerie</h3>
+    <div style="display:grid;grid-template-columns:{{ cols4 }};gap:14px;">
+      <sc-for list="{{ galleryItems }}" as="g" hint-placeholder-count="4">
+        <div style="height:140px;border-radius:var(--radius-sm);overflow:hidden;"><image-slot id="{{ g.id }}" shape="rect" placeholder="Photo" src="{{ g.src }}"></image-slot></div>
+      </sc-for>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isCagnottes }}" hint-placeholder-val="{{ false }}">
+  <main style="max-width:1240px;margin:0 auto;padding:{{ mainPad }};animation:fadeInUp 0.5s ease both;">
+    <div style="font-size:var(--text-eyebrow);font-weight:600;color:var(--gl-orange);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);margin-bottom:12px;">Cagnottes</div>
+    <h1 style="font-family:var(--font-display);font-weight:700;font-size:{{ pageTitleSize }};color:var(--text-primary);margin:0 0 44px;max-width:700px;">Suivez et soutenez nos collectes</h1>
+    <div style="display:grid;grid-template-columns:{{ cols2 }};gap:28px;">
+      <sc-for list="{{ allCagnottes }}" as="c" hint-placeholder-count="3">
+        <div style="border-radius:var(--radius-md);padding:28px;background:var(--surface-card);box-shadow:var(--shadow-card);animation:fadeInUp 0.5s ease both;animation-delay:{{ c.delay }};">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div style="font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--text-primary);">{{ c.title }}</div>
+            <span style="font-size:12px;font-weight:600;padding:4px 10px;border-radius:var(--radius-pill);background:{{ c.badgeBg }};color:{{ c.badgeColor }};white-space:nowrap;">{{ c.statusLabel }}</span>
+          </div>
+          <p style="font-size:14px;color:var(--text-secondary);line-height:var(--lh-normal);margin:0 0 20px;">{{ c.desc }}</p>
+          <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-secondary);margin-bottom:8px;">
+            <span>{{ c.collectedFmt }}</span><span>{{ c.pct }}% de {{ c.goalFmt }}</span>
+          </div>
+          <div style="height:8px;background:var(--gl-teal-tint);border-radius:4px;overflow:hidden;margin-bottom:16px;"><div style="height:100%;background:var(--gl-teal);border-radius:4px;--pct:{{ c.pctWidth }};animation:fillBar 1.4s cubic-bezier(.22,1,.36,1) forwards;"></div></div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-bottom:20px;">Du {{ c.start }} au {{ c.end }}</div>
+          <div style="display:flex;flex-direction:{{ stackDir }};gap:12px;">
+            <div data-cta-block style="display:grid;flex:1;">
+              <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,42px" variant="accent" onClick="{{ c.donate }}">Faire un don</x-import>
+            </div>
+            <div data-cta-block style="display:grid;flex:1;">
+              <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,42px" variant="outline" onClick="{{ c.open }}">Voir le détail</x-import>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isCagnotteDetail }}" hint-placeholder-val="{{ false }}">
+  <main style="max-width:900px;margin:0 auto;padding:{{ mainPad }};animation:fadeInUp 0.5s ease both;">
+    <button style="background:none;border:none;cursor:pointer;font-size:14px;color:var(--text-secondary);padding:0;margin-bottom:24px;" style-hover="color:var(--gl-teal);" onClick="{{ goCagnottes }}">&larr; Retour aux cagnottes</button>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
+      <h1 style="font-family:var(--font-display);font-weight:700;font-size:{{ pageTitleSize }};color:var(--text-primary);margin:0;max-width:600px;">{{ activeCagnotte.title }}</h1>
+      <span style="font-size:12px;font-weight:600;padding:5px 12px;border-radius:var(--radius-pill);background:{{ activeCagnotte.badgeBg }};color:{{ activeCagnotte.badgeColor }};white-space:nowrap;">{{ activeCagnotte.statusLabel }}</span>
+    </div>
+    <p style="font-size:16px;color:var(--text-secondary);line-height:var(--lh-normal);margin:0 0 32px;">{{ activeCagnotte.desc }}</p>
+    <div style="background:var(--surface-card);box-shadow:var(--shadow-card);border-radius:var(--radius-md);padding:32px;margin-bottom:40px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;">
+        <span style="font-family:var(--font-display);font-weight:700;font-size:28px;color:var(--gl-teal);">{{ activeCagnotte.collectedFmt }}</span>
+        <span style="font-size:14px;color:var(--text-secondary);">objectif : {{ activeCagnotte.goalFmt }}</span>
+      </div>
+      <div style="height:10px;background:var(--gl-teal-tint);border-radius:5px;overflow:hidden;margin-bottom:14px;"><div style="height:100%;background:var(--gl-teal);border-radius:5px;--pct:{{ activeCagnotte.pctWidth }};animation:fillBar 1.4s cubic-bezier(.22,1,.36,1) forwards;"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-secondary);margin-bottom:24px;">
+        <span>{{ activeCagnotte.pct }}% atteint</span><span>Du {{ activeCagnotte.start }} au {{ activeCagnotte.end }}</span>
+      </div>
+      <div data-cta-block style="display:grid;"><x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="100%,52px" variant="accent" onClick="{{ activeCagnotte.donate }}">Faire un don à cette cagnotte</x-import></div>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:14px;">
+        <span style="font-size:12px;color:var(--text-secondary);">Moyens de paiement acceptés :</span>
+        <span style="font-size:12px;font-weight:600;color:var(--text-primary);">{{ acceptedMethodsLabel }}</span>
+      </div>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+  <main style="max-width:1240px;margin:0 auto;padding:{{ mainPad }};animation:fadeInUp 0.5s ease both;">
+    <div style="font-size:var(--text-eyebrow);font-weight:600;color:var(--gl-orange);text-transform:uppercase;letter-spacing:var(--tracking-eyebrow);margin-bottom:12px;">Contact</div>
+    <h1 style="font-family:var(--font-display);font-weight:700;font-size:{{ pageTitleSize }};color:var(--text-primary);margin:0 0 44px;max-width:700px;">Une question, un projet ? Parlons-en</h1>
+    <div style="display:grid;grid-template-columns:{{ contactCols }};gap:{{ splitGap }};">
+      <div>
+        <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
+          <div style="background:var(--gl-teal-tint);border-radius:var(--radius-md);padding:32px;color:var(--gl-teal-dark);font-size:15px;animation:popIn 0.4s ease both;">Merci, votre message a bien été envoyé. Nous reviendrons vers vous rapidement.</div>
+        </sc-if>
+        <sc-if value="{{ contactFormVisible }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div>
+            <label style="font-size:13px;font-weight:600;color:var(--text-primary);display:block;margin-bottom:6px;">Nom</label>
+            <input type="text" placeholder="Votre nom" style="width:100%;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:13px 14px;font-size:14px;font-family:var(--font-body);" />
+          </div>
+          <div>
+            <label style="font-size:13px;font-weight:600;color:var(--text-primary);display:block;margin-bottom:6px;">E-mail</label>
+            <input type="email" placeholder="vous@exemple.com" style="width:100%;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:13px 14px;font-size:14px;font-family:var(--font-body);" />
+          </div>
+          <div>
+            <label style="font-size:13px;font-weight:600;color:var(--text-primary);display:block;margin-bottom:6px;">Message</label>
+            <textarea placeholder="Votre message" rows="5" style="width:100%;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:13px 14px;font-size:14px;font-family:var(--font-body);resize:vertical;"></textarea>
+          </div>
+          <div style="align-self:flex-start;">
+            <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,48px" variant="accent" onClick="{{ submitContact }}">Envoyer le message</x-import>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+      <div>
+        <div style="background:var(--surface-card);box-shadow:var(--shadow-card);border-radius:var(--radius-md);padding:28px;margin-bottom:20px;">
+          <div style="font-family:var(--font-display);font-weight:700;font-size:17px;color:var(--text-primary);margin-bottom:16px;">Coordonnées</div>
+          <div style="font-size:14px;color:var(--text-secondary);line-height:2;">
+            <div>Dakar, Sénégal</div>
+            <div>+221 XX XXX XX XX</div>
+            <div>contact@hassanates-pourtous.org</div>
+          </div>
+        </div>
+        <div style="border-radius:var(--radius-md);overflow:hidden;height:180px;"><image-slot id="contact-map" shape="rect" placeholder="Carte / localisation" src="assets/photo-05.jpeg"></image-slot></div>
+      </div>
+    </div>
+  </main>
+  </sc-if>
+
+  <footer style="border-top:1px solid var(--border-subtle);background:var(--surface-card);">
+    <div style="max-width:1240px;margin:0 auto;padding:40px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <img src="assets/logo-hassanates.png" alt="Hassanates pour tous" style="width:34px;height:34px;border-radius:50%;" />
+        <span style="font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--text-primary);">Hassanates pour tous</span>
+      </div>
+      <div style="font-size:13px;color:var(--text-secondary);">Facebook · Instagram · WhatsApp</div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span style="font-size:13px;color:var(--text-secondary);">© 2026 Hassanates pour tous</span>
+        <span style="font-size:11px;color:var(--gl-gray-400);cursor:pointer;" onClick="{{ goAdminLogin }}">Administration</span>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+  <button style="position:{{ chromePosition }};right:28px;bottom:28px;z-index:50;width:52px;height:52px;border-radius:50%;border:none;background:var(--gl-teal);color:#fff;font-size:20px;cursor:pointer;transition:opacity 0.3s ease,transform 0.2s ease;animation:pulseRing 2.6s ease-out infinite;opacity:{{ topBtnOpacity }};pointer-events:{{ topBtnEvents }};" style-hover="transform:translateY(-3px);" onClick="{{ scrollTop }}">↑</button>
+  </sc-if>
+
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+  <div style="height:84px;"></div>
+  <nav style="position:{{ navPosition }};left:16px;right:16px;bottom:16px;margin:{{ navMargin }};z-index:50;background:#fff;border-radius:var(--radius-pill);box-shadow:0 12px 32px rgba(24,21,17,0.18);padding:8px;display:flex;justify-content:space-around;">
+    <sc-for list="{{ mobileTabs }}" as="t" hint-placeholder-count="3">
+      <button style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;background:{{ t.pillBg }};border:none;border-radius:var(--radius-pill);padding:9px 4px;cursor:pointer;color:{{ t.color }};transition:background 0.15s;" onClick="{{ t.go }}">
+        <div style="width:20px;height:20px;background-repeat:no-repeat;background-position:center;background-size:contain;background-image:url({{ t.iconUrl }});"></div>
+        <span style="font-size:11px;font-weight:600;">{{ t.label }}</span>
+      </button>
+    </sc-for>
+  </nav>
+  </sc-if>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAdminLogin }}" hint-placeholder-val="{{ false }}">
+<div style="min-height:100vh;background:var(--gl-black);display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--surface-card);border-radius:var(--radius-lg);padding:44px;width:400px;max-width:100%;box-shadow:var(--shadow-card-hover);animation:popIn 0.4s ease both;">
+    <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:28px;">
+      <img src="assets/logo-hassanates.png" alt="Hassanates pour tous" style="width:56px;height:56px;border-radius:50%;margin-bottom:14px;" />
+      <div style="font-family:var(--font-display);font-weight:700;font-size:19px;color:var(--text-primary);line-height:1.3;margin-bottom:8px;text-align:center;">Espace administrateur</div>
+      <div style="font-size:13px;color:var(--text-secondary);text-align:center;">Réservé à l'équipe de Hassanates pour tous</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:22px;">
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Identifiant</label>
+        <input type="text" placeholder="admin@hassanates-pourtous.org" style="width:100%;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);" />
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Mot de passe</label>
+        <input type="password" placeholder="••••••••" style="width:100%;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);" />
+      </div>
+    </div>
+    <div data-cta-block style="display:grid;"><x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="100%,48px" variant="accent" onClick="{{ goAdmin }}">Se connecter</x-import></div>
+    <button style="width:100%;text-align:center;background:none;border:none;cursor:pointer;font-size:13px;color:var(--text-secondary);margin-top:16px;" style-hover="color:var(--gl-teal);" onClick="{{ goHome }}">&larr; Retour au site public</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;min-height:100vh;">
+  <aside style="width:240px;background:var(--gl-black);color:#fff;padding:28px 20px;flex-shrink:0;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:40px;cursor:pointer;" onClick="{{ goHome }}">
+      <img src="assets/logo-hassanates.png" alt="Hassanates pour tous" style="width:34px;height:34px;border-radius:50%;" />
+      <span style="font-family:var(--font-display);font-weight:700;font-size:14px;color:#fff;">Espace admin</span>
+    </div>
+    <nav style="display:flex;flex-direction:column;gap:2px;">
+      <sc-for list="{{ adminNavItems }}" as="item" hint-placeholder-count="4">
+        <button style="text-align:left;background:{{ item.bg }};border:none;border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-weight:600;color:{{ item.color }};cursor:pointer;" onClick="{{ item.go }}">{{ item.label }}</button>
+      </sc-for>
+    </nav>
+    <div style="margin-top:60px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.15);font-size:12px;color:var(--gl-gray-400);">Connecté en tant que<br/><span style="color:#fff;font-weight:600;">Super administrateur</span></div>
+    <button style="margin-top:16px;background:none;border:1px solid rgba(255,255,255,0.25);border-radius:var(--radius-sm);padding:9px 14px;font-size:13px;color:#EFEBE2;cursor:pointer;width:100%;" onClick="{{ goHome }}">Retour au site public</button>
+  </aside>
+
+  <main style="flex:1;padding:44px 48px;background:var(--surface-page);">
+
+    <sc-if value="{{ isAdminDashboard }}" hint-placeholder-val="{{ true }}">
+    <div>
+      <h1 style="font-family:var(--font-display);font-weight:700;font-size:26px;color:var(--text-primary);margin:0 0 28px;">Tableau de bord</h1>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:40px;">
+        <sc-for list="{{ dashboardStats }}" as="s" hint-placeholder-count="4">
+          <div style="background:var(--surface-card);box-shadow:var(--shadow-card);border-radius:var(--radius-md);padding:22px;animation:popIn 0.4s ease both;animation-delay:{{ s.delay }};">
+            <div style="font-size:13px;color:var(--text-secondary);margin-bottom:10px;">{{ s.label }}</div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:26px;color:var(--text-primary);">{{ s.value }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:var(--surface-card);box-shadow:var(--shadow-card);border-radius:var(--radius-md);padding:28px;margin-bottom:24px;">
+        <div style="font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--text-primary);margin-bottom:6px;">Chiffres clés de la page d'accueil</div>
+        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:18px;">Modifiez ces valeurs pour mettre à jour instantanément la section "Notre impact" du site public.</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Bénéficiaires</label>
+            <input type="number" value="{{ stBeneficiaries }}" onChange="{{ onStBeneficiaries }}" style="width:100%;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:10px 12px;font-size:14px;font-family:var(--font-body);" />
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Fonds collectés (M FCFA)</label>
+            <input type="number" value="{{ stFundsM }}" onChange="{{ onStFundsM }}" style="width:100%;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:10px 12px;font-size:14px;font-family:var(--font-body);" />
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Activités menées</label>
+            <input type="number" value="{{ stActivitiesCount }}" onChange="{{ onStActivitiesCount }}" style="width:100%;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:10px 12px;font-size:14px;font-family:var(--font-body);" />
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Bénévoles engagés</label>
+            <input type="number" value="{{ stVolunteers }}" onChange="{{ onStVolunteers }}" style="width:100%;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:10px 12px;font-size:14px;font-family:var(--font-body);" />
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--surface-card);box-shadow:var(--shadow-card);border-radius:var(--radius-md);padding:28px;">
+        <div style="font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--text-primary);margin-bottom:18px;">Avancement des cagnottes actives</div>
+        <sc-for list="{{ activeCagnottesHome }}" as="c" hint-placeholder-count="2">
+          <div style="margin-bottom:18px;">
+            <div style="display:flex;justify-content:space-between;font-size:14px;color:var(--text-primary);margin-bottom:6px;"><span>{{ c.title }}</span><span>{{ c.pct }}%</span></div>
+            <div style="height:8px;background:var(--gl-teal-tint);border-radius:4px;overflow:hidden;"><div style="height:100%;background:var(--gl-teal);border-radius:4px;--pct:{{ c.pctWidth }};animation:fillBar 1.4s cubic-bezier(.22,1,.36,1) forwards;"></div></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isAdminActivities }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;">
+        <h1 style="font-family:var(--font-display);font-weight:700;font-size:26px;color:var(--text-primary);margin:0;">Activités</h1>
+        <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,42px" variant="accent" onClick="{{ openActivityCreate }}">+ Nouvelle activité</x-import>
+      </div>
+      <div style="background:var(--surface-card);box-shadow:var(--shadow-card);border-radius:var(--radius-md);overflow:hidden;">
+        <div style="display:grid;grid-template-columns:2fr 1fr 3fr 1fr;padding:16px 22px;background:var(--gl-gray-100);border-bottom:1px solid var(--border-subtle);font-size:12px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.04em;">
+          <div>Titre</div><div>Catégorie</div><div>Description</div><div>Actions</div>
+        </div>
+        <sc-for list="{{ allActivities }}" as="a" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:2fr 1fr 3fr 1fr;padding:16px 22px;border-bottom:1px solid var(--border-subtle);align-items:center;font-size:14px;color:var(--text-primary);">
+            <div style="font-weight:600;">{{ a.title }}</div>
+            <div style="color:var(--text-secondary);">{{ a.category }}</div>
+            <div style="color:var(--text-secondary);font-size:13px;">{{ a.desc }}</div>
+            <div style="display:flex;gap:14px;font-size:13px;">
+              <span style="color:var(--gl-teal);cursor:pointer;" onClick="{{ a.edit }}">Modifier</span><span style="color:#B94A48;cursor:pointer;" onClick="{{ a.del }}">Supprimer</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isAdminCagnottes }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;">
+        <h1 style="font-family:var(--font-display);font-weight:700;font-size:26px;color:var(--text-primary);margin:0;">Cagnottes</h1>
+        <x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,42px" variant="accent" onClick="{{ openCagnotteCreate }}">+ Nouvelle cagnotte</x-import>
+      </div>
+      <div style="background:var(--surface-card);box-shadow:var(--shadow-card);border-radius:var(--radius-md);overflow:hidden;">
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;padding:16px 22px;background:var(--gl-gray-100);border-bottom:1px solid var(--border-subtle);font-size:12px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.04em;">
+          <div>Titre</div><div>Objectif</div><div>Collecté</div><div>Statut</div><div>Actions</div>
+        </div>
+        <sc-for list="{{ allCagnottes }}" as="c" hint-placeholder-count="3">
+          <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;padding:16px 22px;border-bottom:1px solid var(--border-subtle);align-items:center;font-size:14px;color:var(--text-primary);">
+            <div style="font-weight:600;">{{ c.title }}</div>
+            <div style="color:var(--text-secondary);font-size:13px;">{{ c.goalFmt }}</div>
+            <div style="color:var(--text-secondary);font-size:13px;">{{ c.collectedFmt }}</div>
+            <div><span style="font-size:12px;font-weight:600;padding:4px 10px;border-radius:var(--radius-pill);background:{{ c.badgeBg }};color:{{ c.badgeColor }};">{{ c.statusLabel }}</span></div>
+            <div style="display:flex;gap:14px;font-size:13px;">
+              <span style="color:var(--gl-teal);cursor:pointer;" onClick="{{ c.edit }}">Modifier</span><span style="color:#B94A48;cursor:pointer;" onClick="{{ c.del }}">Supprimer</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isAdminPaiements }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <h1 style="font-family:var(--font-display);font-weight:700;font-size:26px;color:var(--text-primary);margin:0 0 28px;">Moyens de paiement</h1>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:700px;">
+        <div style="background:var(--surface-card);box-shadow:var(--shadow-card);border-radius:var(--radius-md);padding:24px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <span style="font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--text-primary);">Wave</span>
+            <span style="font-size:12px;font-weight:600;padding:4px 10px;border-radius:var(--radius-pill);background:{{ waveStatusBg }};color:{{ waveStatusColor }};cursor:pointer;" onClick="{{ toggleWave }}">{{ waveStatusLabel }}</span>
+          </div>
+          <p style="font-size:13px;color:var(--text-secondary);margin:0;">Redirection vers l'application Wave pour finaliser les dons. Cliquez sur le badge pour l'activer/désactiver.</p>
+        </div>
+        <div style="background:var(--surface-card);box-shadow:var(--shadow-card);border-radius:var(--radius-md);padding:24px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <span style="font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--text-primary);">Orange Money</span>
+            <span style="font-size:12px;font-weight:600;padding:4px 10px;border-radius:var(--radius-pill);background:{{ omStatusBg }};color:{{ omStatusColor }};cursor:pointer;" onClick="{{ toggleOM }}">{{ omStatusLabel }}</span>
+          </div>
+          <p style="font-size:13px;color:var(--text-secondary);margin:0;">Redirection vers l'application Orange Money pour finaliser les dons. Cliquez sur le badge pour l'activer/désactiver.</p>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+  </main>
+</div>
+</sc-if>
+
+<sc-if value="{{ adminModalOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;background:rgba(24,21,17,0.6);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeInUp 0.2s ease both;" onClick="{{ closeAdminModal }}">
+  <div style="background:var(--surface-card);border-radius:var(--radius-lg);width:640px;max-width:100%;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;animation:popIn 0.3s ease both;box-shadow:0 24px 60px rgba(24,21,17,0.25);" onClick="{{ stopProp }}">
+    <div style="background:var(--gl-black);padding:26px 32px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--gl-teal);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <img src="https://unpkg.com/lucide-static@latest/icons/pencil-line.svg" alt="" style="width:18px;height:18px;filter:invert(1);" />
+        </div>
+        <div>
+          <div style="font-family:var(--font-display);font-weight:700;font-size:19px;color:#fff;">{{ adminModalTitle }}</div>
+          <div style="font-size:12px;color:var(--gl-gray-400);margin-top:2px;">Les changements apparaissent instantanément sur le site public</div>
+        </div>
+      </div>
+      <button style="background:rgba(255,255,255,0.1);border:none;border-radius:50%;width:32px;height:32px;font-size:16px;color:#fff;cursor:pointer;flex-shrink:0;" onClick="{{ closeAdminModal }}">&times;</button>
+    </div>
+
+    <div style="padding:28px 32px;overflow-y:auto;flex:1;">
+    <sc-if value="{{ isAdminModalActivity }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:22px;">
+
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--gl-teal-dark);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Informations générales</div>
+        <div style="background:var(--gl-cream-2);border-radius:var(--radius-md);padding:18px;display:flex;flex-direction:column;gap:14px;">
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Titre</label>
+            <input type="text" placeholder="Ex : Distribution de kits scolaires" value="{{ afTitle }}" onChange="{{ onAfTitle }}" style="width:100%;border:1.5px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;" />
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Catégorie</label>
+            <input type="text" placeholder="Ex : Éducation" value="{{ afCategory }}" onChange="{{ onAfCategory }}" style="width:100%;border:1.5px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;" />
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Description courte (carte)</label>
+            <textarea rows="2" placeholder="Résumé affiché sur les cartes d'activité" value="{{ afDesc }}" onChange="{{ onAfDesc }}" style="width:100%;border:1.5px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);resize:vertical;background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--gl-teal-dark);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Photo de couverture</div>
+        <div style="height:180px;border-radius:var(--radius-md);overflow:hidden;">
+          <image-slot id="{{ afImgId }}" shape="rect" placeholder="Glissez une photo ici ou cliquez pour parcourir" src="{{ afPhoto }}"></image-slot>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--gl-teal-dark);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Témoignage</div>
+        <div style="background:var(--gl-teal-tint);border-radius:var(--radius-md);padding:18px;display:flex;flex-direction:column;gap:14px;">
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--gl-teal-dark);display:block;margin-bottom:6px;">Citation</label>
+            <input type="text" placeholder="Ex : Grâce à cette aide, nous avons pu..." value="{{ afQuote }}" onChange="{{ onAfQuote }}" style="width:100%;border:1.5px solid var(--gl-teal-tint);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;" />
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--gl-teal-dark);display:block;margin-bottom:6px;">Auteur</label>
+            <input type="text" placeholder="Ex : Fatou, bénéficiaire" value="{{ afQuoteAuthor }}" onChange="{{ onAfQuoteAuthor }}" style="width:100%;border:1.5px solid var(--gl-teal-tint);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;" />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--gl-teal-dark);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Détails (page activité)</div>
+        <div style="background:var(--gl-cream-2);border-radius:var(--radius-md);padding:18px;display:flex;flex-direction:column;gap:14px;">
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Contexte</label>
+            <textarea rows="2" value="{{ afContexte }}" onChange="{{ onAfContexte }}" style="width:100%;border:1.5px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);resize:vertical;background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;"></textarea>
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Actions menées</label>
+            <textarea rows="2" value="{{ afActions }}" onChange="{{ onAfActions }}" style="width:100%;border:1.5px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);resize:vertical;background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;"></textarea>
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Résultats</label>
+            <textarea rows="2" value="{{ afResultats }}" onChange="{{ onAfResultats }}" style="width:100%;border:1.5px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);resize:vertical;background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isAdminModalCagnotte }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:22px;">
+
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--gl-teal-dark);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Informations</div>
+        <div style="background:var(--gl-cream-2);border-radius:var(--radius-md);padding:18px;display:flex;flex-direction:column;gap:14px;">
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Titre</label>
+            <input type="text" placeholder="Ex : Tabaski 2026 — Moutons pour tous" value="{{ cfTitle }}" onChange="{{ onCfTitle }}" style="width:100%;border:1.5px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;" />
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Description</label>
+            <textarea rows="2" value="{{ cfDesc }}" onChange="{{ onCfDesc }}" style="width:100%;border:1.5px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);resize:vertical;background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;">
+          <div style="font-size:11px;font-weight:700;color:var(--gl-teal-dark);text-transform:uppercase;letter-spacing:0.08em;">Financement</div>
+          <div style="font-size:12px;font-weight:700;color:var(--gl-teal);">{{ cfPct }}% atteint</div>
+        </div>
+        <div style="background:var(--gl-teal-tint);border-radius:var(--radius-md);padding:18px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--gl-teal-dark);display:block;margin-bottom:6px;">Objectif (FCFA)</label>
+              <input type="number" value="{{ cfGoal }}" onChange="{{ onCfGoal }}" style="width:100%;border:1.5px solid var(--gl-teal-tint);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;" />
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--gl-teal-dark);display:block;margin-bottom:6px;">Déjà collecté (FCFA)</label>
+              <input type="number" value="{{ cfCollected }}" onChange="{{ onCfCollected }}" style="width:100%;border:1.5px solid var(--gl-teal-tint);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--gl-teal-dark);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Période et statut</div>
+        <div style="background:var(--gl-cream-2);border-radius:var(--radius-md);padding:18px;display:flex;flex-direction:column;gap:14px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Date de début</label>
+              <input type="text" placeholder="JJ/MM/AAAA" value="{{ cfStart }}" onChange="{{ onCfStart }}" style="width:100%;border:1.5px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;" />
+            </div>
+            <div>
+              <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Date de fin</label>
+              <input type="text" placeholder="JJ/MM/AAAA" value="{{ cfEnd }}" onChange="{{ onCfEnd }}" style="width:100%;border:1.5px solid var(--border-subtle);border-radius:var(--radius-sm);padding:12px 14px;font-size:14px;font-family:var(--font-body);background:#fff;transition:border-color 0.15s;" style-focus="border-color:var(--gl-teal);outline:none;" />
+            </div>
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:6px;">Statut</label>
+            <div style="display:flex;gap:10px;">
+              <button style="flex:1;border:none;border-radius:var(--radius-pill);padding:11px;font-size:13px;font-weight:600;cursor:pointer;background:{{ cfStatusActiveBg }};color:{{ cfStatusActiveColor }};transition:background 0.15s;" onClick="{{ setCfStatusActive }}">Active</button>
+              <button style="flex:1;border:none;border-radius:var(--radius-pill);padding:11px;font-size:13px;font-weight:600;cursor:pointer;background:{{ cfStatusClosedBg }};color:{{ cfStatusClosedColor }};transition:background 0.15s;" onClick="{{ setCfStatusClosed }}">Clôturée</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+    </div>
+
+    <div style="display:flex;gap:12px;padding:20px 32px;border-top:1px solid var(--border-subtle);flex-shrink:0;">
+      <div data-cta-block style="display:grid;flex:1;"><x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,46px" variant="outline" onClick="{{ closeAdminModal }}">Annuler</x-import></div>
+      <sc-if value="{{ isAdminModalActivity }}" hint-placeholder-val="{{ false }}">
+        <div data-cta-block style="display:grid;flex:1;"><x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,46px" variant="accent" onClick="{{ saveActivity }}">Enregistrer</x-import></div>
+      </sc-if>
+      <sc-if value="{{ isAdminModalCagnotte }}" hint-placeholder-val="{{ false }}">
+        <div data-cta-block style="display:grid;flex:1;"><x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,46px" variant="accent" onClick="{{ saveCagnotte }}">Enregistrer</x-import></div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ donationOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;background:rgba(24,21,17,0.6);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeInUp 0.2s ease both;" onClick="{{ closeDonationOverlay }}">
+  <div style="background:var(--surface-card);border-radius:var(--radius-lg);padding:{{ modalPad }};width:{{ modalWidth }};max-width:calc(100% - 32px);max-height:86vh;overflow-y:auto;animation:popIn 0.3s ease both;" onClick="{{ stopProp }}">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+      <div style="font-family:var(--font-display);font-weight:700;font-size:19px;color:var(--text-primary);">{{ donationTitle }}</div>
+      <button style="background:none;border:none;font-size:20px;color:var(--text-secondary);cursor:pointer;" onClick="{{ closeDonation }}">&times;</button>
+    </div>
+
+    <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
+    <div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;">
+        <sc-for list="{{ amountOptions }}" as="amt" hint-placeholder-count="6">
+          <button style="border:1.5px solid {{ amt.border }};background:{{ amt.bg }};color:{{ amt.color }};border-radius:var(--radius-sm);padding:14px 6px;font-size:14px;font-weight:700;cursor:pointer;" onClick="{{ amt.select }}">{{ amt.label }}</button>
+        </sc-for>
+      </div>
+      <input type="text" placeholder="Montant libre (FCFA)" value="{{ donationCustom }}" onChange="{{ setCustomAmount }}" style="width:100%;border:1.5px solid var(--border-subtle);border-radius:var(--radius-sm);padding:13px 14px;font-size:14px;font-family:var(--font-body);margin-bottom:24px;" />
+      <div data-cta-block style="display:grid;opacity:{{ step1ContinueOpacity }};"><x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="100%,50px" variant="accent" onClick="{{ goStep2 }}">Continuer</x-import></div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;">Montant : <strong style="color:var(--text-primary);">{{ donationAmountFmt }}</strong></div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px;">
+        <button style="display:flex;justify-content:space-between;align-items:center;border:1.5px solid {{ waveBorder }};background:{{ waveBg }};border-radius:var(--radius-sm);padding:16px 18px;cursor:pointer;" onClick="{{ selectWave }}">
+          <span style="font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--text-primary);">Wave</span>
+          <span style="font-size:13px;color:var(--text-secondary);">Paiement mobile</span>
+        </button>
+        <button style="display:flex;justify-content:space-between;align-items:center;border:1.5px solid {{ omBorder }};background:{{ omBg }};border-radius:var(--radius-sm);padding:16px 18px;cursor:pointer;" onClick="{{ selectOM }}">
+          <span style="font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--text-primary);">Orange Money</span>
+          <span style="font-size:13px;color:var(--text-secondary);">Paiement mobile</span>
+        </button>
+      </div>
+      <div style="display:flex;flex-direction:{{ stackDir }};gap:12px;">
+        <div data-cta-block style="display:grid;flex:1;"><x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,50px" variant="outline" onClick="{{ backStep1 }}">Retour</x-import></div>
+        <div data-cta-block style="display:grid;flex:2;opacity:{{ step2ContinueOpacity }};"><x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="auto,50px" variant="accent" onClick="{{ goStep3 }}">Confirmer le don</x-import></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
+    <div style="text-align:center;padding:12px 0;">
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--gl-teal-tint);color:var(--gl-teal);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px;animation:popIn 0.4s ease both;">✓</div>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--text-primary);margin-bottom:10px;">Merci pour votre générosité</div>
+      <p style="font-size:14px;color:var(--text-secondary);line-height:var(--lh-normal);margin:0 0 22px;">Finalisez votre don de {{ donationAmountFmt }} avec {{ donationMethod }}, au choix :</p>
+      <div data-cta-block style="display:grid;margin-bottom:18px;"><x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="100%,50px" variant="accent">Ouvrir l'application {{ donationMethod }}</x-import></div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+        <div style="flex:1;height:1px;background:var(--border-subtle);"></div>
+        <span style="font-size:12px;color:var(--text-secondary);">ou scannez ce QR code</span>
+        <div style="flex:1;height:1px;background:var(--border-subtle);"></div>
+      </div>
+      <div style="border:1.5px dashed var(--border-subtle);border-radius:var(--radius-md);padding:20px;margin-bottom:26px;">
+        <div style="width:140px;height:140px;margin:0 auto;"><image-slot id="donation-qr" shape="rect" placeholder="QR code de paiement"></image-slot></div>
+      </div>
+      <div data-cta-block style="display:grid;"><x-import component-from-global-scope="GainLoveDesignSystem_c8b926.Button" hint-size="100%,48px" variant="outline" onClick="{{ closeDonation }}">Terminer</x-import></div>
+    </div>
+    </sc-if>
+
+  </div>
+</div>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;forceMobilePreview&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Affichage&quot;}}">
+const CAT_COLORS = { active: { bg: '#DCF3E4', color: '#1C7A44' }, closed: { bg: '#EFEBE2', color: '#6B6660' } };
+
+class Component extends DCLogic {
+  state = {
+    page: 'home',
+    activeActivityId: null,
+    activeCagnotteId: null,
+    accOpen: { contexte: true, actions: false, resultats: false },
+    adminSection: 'dashboard',
+    contactSent: false,
+    donationOpen: false,
+    donationCagnotteTitle: null,
+    donationStep: 1,
+    donationFreq: 'ponctuel',
+    donationAmount: null,
+    donationCustom: '',
+    donationMethod: null,
+    scrollY: 0,
+    isNarrow: false,
+    statsT: 0,
+    statsTargets: { beneficiaries: 2400, fundsM: 15, activitiesCount: 24, volunteers: 80 },
+    paymentMethods: { wave: true, om: true },
+    adminModal: { open: false, type: null, mode: null, form: {} },
+    activities: [
+      { id: 'tabaski', title: 'Tabaski', category: 'Fête religieuse', photo: 'assets/photo-03.jpeg',
+        desc: "Distribution de moutons et de repas aux familles dans le besoin à l'occasion de l'Aïd al-Adha.",
+        quote: "Grâce à cette distribution, toute notre famille a pu célébrer la fête dans la dignité.", quoteAuthor: 'Fatou, bénéficiaire',
+        contexte: "Chaque année, de nombreuses familles ne peuvent pas subvenir aux frais liés à la fête de Tabaski. L'association organise une collecte pour leur venir en aide.",
+        actions: "Achat et distribution de moutons, préparation et distribution de repas dans plusieurs quartiers, en coordination avec des bénévoles locaux.",
+        resultats: "Plus de 300 familles ont bénéficié de cette action lors de la dernière édition." },
+      { id: 'ramadan', title: 'Ramadan', category: 'Fête religieuse', photo: 'assets/photo-05.jpeg',
+        desc: 'Distribution de paniers alimentaires et organisation de ruptures de jeûne collectives tout au long du mois.',
+        quote: "Chaque soir, nous savions que nous pourrions rompre le jeûne dignement grâce à l'association.", quoteAuthor: 'Moussa, bénéficiaire',
+        contexte: "Le mois de Ramadan représente une charge financière importante pour les foyers les plus précaires.",
+        actions: "Distribution hebdomadaire de paniers alimentaires et organisation de ruptures de jeûne collectives ouvertes à tous.",
+        resultats: "Plus de 1 200 paniers distribués et 40 soirées de rupture de jeûne organisées." },
+      { id: 'rentree', title: 'Rentrée scolaire', category: 'Éducation', photo: 'assets/photo-07.jpeg',
+        desc: 'Fourniture de kits scolaires complets aux enfants issus de familles vulnérables.',
+        quote: "Mes enfants sont retournés à l'école avec tout le nécessaire, sans que j'aie à m'endetter.", quoteAuthor: 'Aïssatou, mère de famille',
+        contexte: "La rentrée scolaire pèse lourdement sur le budget des familles modestes, au risque de compromettre la scolarité des enfants.",
+        actions: "Constitution et distribution de kits scolaires (cahiers, fournitures, uniformes) dans les écoles partenaires.",
+        resultats: "600 enfants équipés lors de la dernière rentrée." },
+      { id: 'sante', title: 'Caravane médicale', category: 'Santé', photo: 'assets/photo-08.jpeg',
+        desc: 'Consultations et soins gratuits dans les zones rurales isolées.',
+        quote: "Nous n'avions plus accès à un médecin depuis des années. Cette caravane a changé beaucoup de choses.", quoteAuthor: 'Ndèye, habitante',
+        contexte: "L'accès aux soins reste difficile dans certaines zones rurales, faute de structures de santé à proximité.",
+        actions: "Organisation de journées de consultation gratuite avec des médecins et infirmiers bénévoles, distribution de médicaments de base.",
+        resultats: "Plus de 800 consultations réalisées sur l'année." },
+    ],
+    cagnottes: [
+      { id: 'tabaski2026', title: 'Tabaski 2026 — Moutons pour tous', desc: "Collecte pour financer l'achat de moutons destinés aux familles les plus démunies.", goal: 5000000, collected: 3200000, start: '01/03/2026', end: '15/05/2026', status: 'active' },
+      { id: 'urgence-sante', title: "Fonds d'urgence santé", desc: 'Fonds permanent pour financer les caravanes médicales et les urgences de santé.', goal: 3000000, collected: 900000, start: '01/01/2026', end: '31/12/2026', status: 'active' },
+      { id: 'rentree2026', title: 'Rentrée scolaire 2026', desc: 'Kits scolaires pour les enfants issus de familles vulnérables.', goal: 2000000, collected: 2000000, start: '01/07/2025', end: '31/08/2025', status: 'closed' },
+    ],
+  };
+
+  photoOptions = ['assets/photo-01.jpeg','assets/photo-02.jpeg','assets/photo-03.jpeg','assets/photo-04.jpeg','assets/photo-05.jpeg','assets/photo-06.jpeg','assets/photo-07.jpeg','assets/photo-08.jpeg','assets/photo-09.jpeg'];
+
+  testimonialsData = [
+    { name: 'Aïssatou D.', role: 'Bénéficiaire Tabaski', quote: "Cette association nous a permis de vivre la fête avec dignité, sans nous sentir oubliés.", photo: 'assets/photo-04.jpeg' },
+    { name: 'Moussa K.', role: 'Bénévole', quote: "S'engager ici, c'est voir directement l'impact de chaque don sur des familles réelles.", photo: 'assets/photo-07.jpeg' },
+    { name: 'Ndèye F.', role: 'Bénéficiaire Ramadan', quote: "Chaque panier reçu était plus qu'une aide alimentaire, c'était un vrai soutien moral.", photo: 'assets/photo-09.jpeg' },
+  ];
+
+  fmt(n) { return n.toLocaleString('fr-FR') + ' FCFA'; }
+
+  prepCagnotte(c, i) {
+    const pct = Math.min(100, Math.round((c.collected / c.goal) * 100));
+    const badge = CAT_COLORS[c.status];
+    return {
+      ...c, pct, pctWidth: pct + '%', delay: (i * 0.1) + 's',
+      collectedFmt: this.fmt(c.collected), goalFmt: this.fmt(c.goal),
+      statusLabel: c.status === 'active' ? 'Active' : 'Clôturée',
+      badgeBg: badge.bg, badgeColor: badge.color,
+      open: () => this.setState({ page: 'cagnotteDetail', activeCagnotteId: c.id }, this.scrollToTopNow),
+      donate: (e) => { e && e.stopPropagation && e.stopPropagation(); this.openDonation(c.title); },
+      edit: () => this.openCagnotteEdit(c),
+      del: () => this.deleteCagnotte(c.id),
+    };
+  }
+
+  goHome = () => this.setState({ page: 'home' }, this.scrollToTopNow);
+  goActivities = () => this.setState({ page: 'activities' }, this.scrollToTopNow);
+  goCagnottes = () => this.setState({ page: 'cagnottes' }, this.scrollToTopNow);
+  goAbout = () => this.setState({ page: 'about' }, this.scrollToTopNow);
+  goContact = () => this.setState({ page: 'contact' }, this.scrollToTopNow);
+  goAdmin = () => this.setState({ page: 'admin', adminSection: 'dashboard' }, this.scrollToTopNow);
+  goAdminLogin = () => this.setState({ page: 'adminLogin' }, this.scrollToTopNow);
+
+  openDonation(cagnotteTitle) {
+    this.setState({ donationOpen: true, donationCagnotteTitle: cagnotteTitle || null, donationStep: 1, donationAmount: null, donationCustom: '', donationMethod: null, donationFreq: 'ponctuel' });
+  }
+  openDonationGeneral = () => this.openDonation(null);
+  closeDonation = () => this.setState({ donationOpen: false });
+  closeDonationOverlay = () => this.setState({ donationOpen: false });
+  stopProp = (e) => e && e.stopPropagation && e.stopPropagation();
+
+  setFreqPonctuel = () => this.setState({ donationFreq: 'ponctuel' });
+  setFreqMensuel = () => this.setState({ donationFreq: 'mensuel' });
+  selectAmount(v) { this.setState({ donationAmount: v, donationCustom: '' }); }
+  setCustomAmount = (e) => this.setState({ donationCustom: e.target.value, donationAmount: null });
+  goStep2 = () => { if (this.state.donationAmount || this.state.donationCustom) this.setState({ donationStep: 2 }); };
+  backStep1 = () => this.setState({ donationStep: 1 });
+  selectWave = () => this.setState({ donationMethod: 'Wave' });
+  selectOM = () => this.setState({ donationMethod: 'Orange Money' });
+  goStep3 = () => { if (this.state.donationMethod) this.setState({ donationStep: 3 }); };
+
+  toggleAcc(key) { this.setState(s => ({ accOpen: { ...s.accOpen, [key]: !s.accOpen[key] } })); }
+  submitContact = () => this.setState({ contactSent: true });
+
+  setFormField = (key, value) => this.setState(s => ({ adminModal: { ...s.adminModal, form: { ...s.adminModal.form, [key]: value } } }));
+  closeAdminModal = () => this.setState(s => ({ adminModal: { ...s.adminModal, open: false } }));
+
+  openActivityCreate = () => this.setState({ adminModal: { open: true, type: 'activity', mode: 'create', form: { id: 'new-' + Date.now(), title: '', category: 'Fête religieuse', desc: '', quote: '', quoteAuthor: '', contexte: '', actions: '', resultats: '', photo: this.photoOptions[0] } } });
+  openActivityEdit = (a) => this.setState({ adminModal: { open: true, type: 'activity', mode: 'edit', form: { ...a } } });
+  saveActivity = () => {
+    const f = this.state.adminModal.form;
+    if (!f.title) return;
+    this.setState(s => {
+      const mode = s.adminModal.mode;
+      const activities = mode === 'create'
+        ? [...s.activities, { ...f }]
+        : s.activities.map(a => a.id === f.id ? { ...f } : a);
+      return { activities, adminModal: { ...s.adminModal, open: false } };
+    });
+  };
+  deleteActivity = (id) => this.setState(s => ({ activities: s.activities.filter(a => a.id !== id) }));
+
+  openCagnotteCreate = () => this.setState({ adminModal: { open: true, type: 'cagnotte', mode: 'create', form: { title: '', desc: '', goal: 1000000, collected: 0, start: '', end: '', status: 'active' } } });
+  openCagnotteEdit = (c) => this.setState({ adminModal: { open: true, type: 'cagnotte', mode: 'edit', form: { ...c } } });
+  saveCagnotte = () => {
+    const f = this.state.adminModal.form;
+    if (!f.title) return;
+    const clean = { ...f, goal: Number(f.goal) || 0, collected: Number(f.collected) || 0 };
+    this.setState(s => {
+      const mode = s.adminModal.mode;
+      const cagnottes = mode === 'create'
+        ? [...s.cagnottes, { ...clean, id: 'cagnotte-' + Date.now() }]
+        : s.cagnottes.map(c => c.id === clean.id ? clean : c);
+      return { cagnottes, adminModal: { ...s.adminModal, open: false } };
+    });
+  };
+  deleteCagnotte = (id) => this.setState(s => ({ cagnottes: s.cagnottes.filter(c => c.id !== id) }));
+
+  togglePayment = (key) => this.setState(s => ({ paymentMethods: { ...s.paymentMethods, [key]: !s.paymentMethods[key] } }));
+  setStatTarget = (key, value) => this.setState(s => ({ statsTargets: { ...s.statsTargets, [key]: Number(value) || 0 } }));
+
+  componentDidMount() {
+    this._seen = new WeakSet();
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'none';
+        if (e.target.hasAttribute('data-counter') && !this._counting) this.runCounters();
+        this._io.unobserve(e.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    this._onScroll = () => {
+      const y = window.scrollY || 0;
+      if (Math.abs(y - (this._lastY || 0)) < 4) return;
+      this._lastY = y;
+      this.setState({ scrollY: y });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onResize = () => this.setState({ isNarrow: window.innerWidth < 760 });
+    window.addEventListener('resize', this._onResize);
+    this._onResize();
+    this.observeAll();
+  }
+
+  componentDidUpdate() { this.observeAll(); }
+
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('resize', this._onResize);
+    if (this._raf) cancelAnimationFrame(this._raf);
+  }
+
+  observeAll() {
+    if (!this._io) return;
+    document.querySelectorAll('[data-reveal]').forEach((el) => {
+      if (this._seen.has(el)) return;
+      this._seen.add(el);
+      this._io.observe(el);
+    });
+  }
+
+  runCounters() {
+    this._counting = true;
+    const start = performance.now();
+    const dur = 1600;
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 3);
+      this.setState({ statsT: eased });
+      if (t < 1) this._raf = requestAnimationFrame(tick);
+    };
+    this._raf = requestAnimationFrame(tick);
+  }
+
+  scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  scrollToTopNow = () => {
+    window.scrollTo(0, 0);
+    if (this._frameEl) this._frameEl.scrollTop = 0;
+  };
+  setFrameRef = (el) => { this._frameEl = el; };
+
+  renderVals() {
+    const s = this.state;
+    const page = s.page;
+    const cagnottes = s.cagnottes.map((c, i) => this.prepCagnotte(c, i));
+    const activities = s.activities.map((a, i) => ({
+      ...a, imgId: 'act-' + a.id, delay: (i * 0.1) + 's',
+      open: () => this.setState({ page: 'activityDetail', activeActivityId: a.id }, this.scrollToTopNow),
+      edit: () => this.openActivityEdit(a),
+      del: () => this.deleteActivity(a.id),
+    }));
+    const testimonials = this.testimonialsData.map((t, i) => ({ ...t, imgId: 'testi-' + i, delay: (i * 0.12) + 's' }));
+
+    const navDefs = [
+      { label: 'Accueil', page: 'home', go: this.goHome },
+      { label: "Découvrir l'association", page: 'about', go: this.goAbout },
+      { label: 'Activités', page: 'activities', go: this.goActivities },
+      { label: 'Cagnottes', page: 'cagnottes', go: this.goCagnottes },
+      { label: 'Contact', page: 'contact', go: this.goContact },
+    ];
+    const activePages = { activities: 'activities', activityDetail: 'activities', cagnottes: 'cagnottes', cagnotteDetail: 'cagnottes' };
+    const navItems = navDefs.map(n => {
+      const isActive = page === n.page || activePages[page] === n.page;
+      return { ...n, color: isActive ? 'var(--gl-teal)' : 'var(--text-primary)', weight: isActive ? 700 : 500, underline: isActive ? '2px solid var(--gl-teal)' : '2px solid transparent' };
+    });
+
+    const adminDefs = [
+      { label: 'Tableau de bord', section: 'dashboard' },
+      { label: 'Activités', section: 'activities' },
+      { label: 'Cagnottes', section: 'cagnottes' },
+      { label: 'Paiements', section: 'paiements' },
+    ];
+    const adminNavItems = adminDefs.map(a => ({
+      label: a.label,
+      go: () => this.setState({ adminSection: a.section }),
+      bg: s.adminSection === a.section ? 'rgba(47,182,232,0.18)' : 'transparent',
+      color: s.adminSection === a.section ? '#2FB6E8' : '#EFEBE2',
+    }));
+
+    const activeActivity = activities.find(a => a.id === s.activeActivityId) || activities[0];
+    const activeCagnotte = cagnottes.find(c => c.id === s.activeCagnotteId) || cagnottes[0];
+
+    const accDefs = [
+      { key: 'contexte', label: 'Contexte', content: activeActivity.contexte },
+      { key: 'actions', label: 'Actions menées', content: activeActivity.actions },
+      { key: 'resultats', label: 'Résultats', content: activeActivity.resultats },
+    ];
+    const accItems = accDefs.map(a => ({
+      ...a, open: s.accOpen[a.key], icon: s.accOpen[a.key] ? '−' : '+',
+      toggle: () => this.toggleAcc(a.key),
+    }));
+    const galleryPhotos = ['assets/photo-01.jpeg', 'assets/photo-02.jpeg', 'assets/photo-06.jpeg', 'assets/photo-09.jpeg'];
+    const galleryItems = [0, 1, 2, 3].map(i => ({ id: activeActivity.imgId + '-g' + i, src: galleryPhotos[i] }));
+
+    const amounts = [1000, 2000, 5000, 10000, 25000, 50000];
+    const amountOptions = amounts.map(v => {
+      const selected = s.donationAmount === v;
+      return {
+        label: v.toLocaleString('fr-FR'), select: () => this.selectAmount(v),
+        border: selected ? 'var(--gl-teal)' : 'var(--border-subtle)', bg: selected ? 'var(--gl-teal-tint)' : '#fff', color: selected ? 'var(--gl-teal-dark)' : 'var(--text-primary)',
+      };
+    });
+    const donationAmount = s.donationAmount || parseInt(s.donationCustom, 10) || 0;
+    const hasAmount = !!(s.donationAmount || s.donationCustom);
+
+    const heroCagnotte = cagnottes.find(c => c.status === 'active') || cagnottes[0];
+    const mob = s.isNarrow || !!this.props.forceMobilePreview;
+    const acceptedNames = [s.paymentMethods.wave ? 'Wave' : null, s.paymentMethods.om ? 'Orange Money' : null].filter(Boolean);
+    const acceptedMethodsLabel = acceptedNames.length ? acceptedNames.join(' • ') : 'Aucun moyen actif';
+
+    const am = s.adminModal;
+    const af = am.form || {};
+    const afImgId = 'act-' + (af.id || 'new');
+
+    return {
+      isMobile: mob,
+      isDesktop: !mob,
+      cols3: mob ? '1fr' : 'repeat(3,1fr)',
+      cols2: mob ? '1fr' : 'repeat(2,1fr)',
+      cols4: mob ? 'repeat(2,1fr)' : 'repeat(4,1fr)',
+      splitCols: mob ? '1fr' : '1fr 1fr',
+      splitGap: mob ? '28px' : '56px',
+      contactCols: mob ? '1fr' : '1.2fr 1fr',
+      sectionPad: mob ? '0 16px' : '0 32px',
+      sectionMargin: mob ? '56px auto' : '100px auto',
+      sectionMarginBottom: mob ? '0 auto 56px' : '0 auto 100px',
+      heroSectionMargin: mob ? '16px auto 0' : '32px auto 0',
+      heroHeight: mob ? '520px' : '640px',
+      heroTextSize: mob ? '15px' : 'var(--text-lg)',
+      heroBtnAlign: mob ? 'stretch' : 'flex-start',
+      heroPad: mob ? '24px' : '56px',
+      heroTitleSize: mob ? '34px' : '60px',
+      heroTextMax: mob ? '100%' : 'min(560px,calc(100% - 320px))',
+      stackDir: mob ? 'column' : 'row',
+      sectionHeadAlign: mob ? 'flex-start' : 'flex-end',
+      statCardDisplay: mob ? 'none' : 'block',
+      bandPad: mob ? '56px 16px' : '90px 32px',
+      mainPad: mob ? '28px 16px 40px' : '60px 32px 100px',
+      pageTitleSize: mob ? '28px' : '44px',
+      detailHeroHeight: mob ? '220px' : '420px',
+      newsletterInputWidth: mob ? '100%' : '280px',
+      marqueeSize: mob ? '16px' : '20px',
+      blockGap: mob ? '48px' : '80px',
+      showPhoneFrame: mob && !s.isNarrow,
+      pageFrameOuterStyle: (!!this.props.forceMobilePreview && !s.isNarrow)
+        ? 'min-height:100vh;background:#EDE6DE;display:flex;align-items:center;justify-content:center;padding:40px 20px;'
+        : '',
+      pageFrameInnerStyle: (!!this.props.forceMobilePreview && !s.isNarrow)
+        ? 'width:390px;height:844px;background:var(--surface-page);border-radius:32px;box-shadow:0 20px 50px rgba(24,21,17,0.18);overflow-y:auto;overflow-x:hidden;position:relative;scrollbar-width:none;'
+        : 'min-height:100vh;',
+      chromePosition: (!!this.props.forceMobilePreview && !s.isNarrow) ? 'absolute' : 'fixed',
+      navPosition: (!!this.props.forceMobilePreview && !s.isNarrow) ? 'sticky' : 'fixed',
+      navMargin: (!!this.props.forceMobilePreview && !s.isNarrow) ? '0 16px' : '0',
+      modalWidth: mob ? '342px' : '460px',
+      modalPad: mob ? '24px 20px' : '36px',
+      mobileTabs: [
+        { key: 'home', label: 'Accueil', iconUrl: 'https://unpkg.com/lucide-static@latest/icons/house.svg', page: 'home', go: this.goHome },
+        { key: 'activities', label: 'Activités', iconUrl: 'https://unpkg.com/lucide-static@latest/icons/calendar-heart.svg', page: 'activities', go: this.goActivities },
+        { key: 'cagnottes', label: 'Cagnottes', iconUrl: 'https://unpkg.com/lucide-static@latest/icons/wallet.svg', page: 'cagnottes', go: this.goCagnottes },
+      ].map(t => {
+        const active = page === t.page || (t.page === 'activities' && page === 'activityDetail') || (t.page === 'cagnottes' && page === 'cagnotteDetail');
+        return { ...t, active, pillBg: active ? 'var(--gl-teal-tint)' : 'transparent', color: active ? 'var(--gl-teal-dark)' : 'var(--text-secondary)' };
+      }),
+      isPublic: page !== 'admin' && page !== 'adminLogin',
+      isAdmin: page === 'admin',
+      isAdminLogin: page === 'adminLogin',
+      goAdminLogin: this.goAdminLogin,
+      isHome: page === 'home', isAbout: page === 'about', isActivities: page === 'activities',
+      isActivityDetail: page === 'activityDetail', isCagnottes: page === 'cagnottes', isCagnotteDetail: page === 'cagnotteDetail',
+      isContact: page === 'contact',
+      isAdminDashboard: s.adminSection === 'dashboard', isAdminActivities: s.adminSection === 'activities',
+      isAdminCagnottes: s.adminSection === 'cagnottes', isAdminPaiements: s.adminSection === 'paiements',
+      navItems, adminNavItems,
+      goHome: this.goHome, goActivities: this.goActivities, goCagnottes: this.goCagnottes, goAdmin: this.goAdmin,
+      openDonationGeneral: this.openDonationGeneral,
+      homeActivities: activities.slice(0, 3), allActivities: activities,
+      activeCagnottesHome: cagnottes.filter(c => c.status === 'active'), allCagnottes: cagnottes,
+      heroCagnotte,
+      statsItems: [
+        { value: Math.round(s.statsTargets.beneficiaries * s.statsT).toLocaleString('fr-FR') + '+', label: 'Bénéficiaires accompagnés', delay: '0s' },
+        { value: (Math.round(s.statsTargets.fundsM * s.statsT * 10) / 10).toFixed(1).replace('.', ',') + 'M FCFA', label: 'Collectés depuis la création', delay: '0.1s' },
+        { value: String(Math.round(s.statsTargets.activitiesCount * s.statsT)), label: 'Activités menées', delay: '0.2s' },
+        { value: Math.round(s.statsTargets.volunteers * s.statsT) + '+', label: 'Bénévoles engagés', delay: '0.3s' },
+      ],
+      heroShift: 'translateY(' + Math.min(60, s.scrollY * 0.12) + 'px) scale(' + (1 + Math.min(0.06, s.scrollY * 0.00012)) + ')',
+      headerPad: s.scrollY > 40 ? '6px 32px' : '12px 32px',
+      headerShadow: s.scrollY > 40 ? '0 6px 20px rgba(24,21,17,0.07)' : 'none',
+      logoSize: s.scrollY > 40 ? '36px' : '46px',
+      topBtnOpacity: s.scrollY > 500 ? 1 : 0,
+      topBtnEvents: s.scrollY > 500 ? 'auto' : 'none',
+      scrollTop: this.scrollTop,
+      setFrameRef: this.setFrameRef,
+      dashboardStats: [
+        { value: activities.length, label: 'Activités publiées', delay: '0s' },
+        { value: cagnottes.length, label: 'Cagnottes créées', delay: '0.1s' },
+        { value: cagnottes.filter(c => c.status === 'active').length, label: 'Cagnottes actives', delay: '0.2s' },
+        { value: this.fmt(cagnottes.reduce((sum, c) => sum + c.collected, 0)), label: 'Total collecté', delay: '0.3s' },
+      ],
+      testimonials,
+      activeActivity, activeCagnotte, accItems, galleryItems,
+      contactSent: s.contactSent, contactFormVisible: !s.contactSent, submitContact: this.submitContact,
+
+      donationOpen: s.donationOpen, closeDonation: this.closeDonation, closeDonationOverlay: this.closeDonationOverlay, stopProp: this.stopProp,
+      donationTitle: s.donationCagnotteTitle ? 'Don — ' + s.donationCagnotteTitle : 'Faire un don',
+      isStep1: s.donationStep === 1, isStep2: s.donationStep === 2, isStep3: s.donationStep === 3,
+      freqPonctuelBg: s.donationFreq === 'ponctuel' ? '#fff' : 'transparent', freqPonctuelColor: s.donationFreq === 'ponctuel' ? 'var(--gl-teal)' : 'var(--text-secondary)',
+      freqMensuelBg: s.donationFreq === 'mensuel' ? '#fff' : 'transparent', freqMensuelColor: s.donationFreq === 'mensuel' ? 'var(--gl-teal)' : 'var(--text-secondary)',
+      setFreqPonctuel: this.setFreqPonctuel, setFreqMensuel: this.setFreqMensuel,
+      amountOptions, donationCustom: s.donationCustom, setCustomAmount: this.setCustomAmount,
+      step1ContinueOpacity: hasAmount ? 1 : 0.45, goStep2: this.goStep2,
+      donationAmountFmt: this.fmt(donationAmount),
+      waveBorder: s.donationMethod === 'Wave' ? 'var(--gl-teal)' : 'var(--border-subtle)', waveBg: s.donationMethod === 'Wave' ? 'var(--gl-teal-tint)' : '#fff',
+      omBorder: s.donationMethod === 'Orange Money' ? 'var(--gl-teal)' : 'var(--border-subtle)', omBg: s.donationMethod === 'Orange Money' ? 'var(--gl-teal-tint)' : '#fff',
+      selectWave: this.selectWave, selectOM: this.selectOM,
+      step2ContinueOpacity: s.donationMethod ? 1 : 0.45, backStep1: this.backStep1, goStep3: this.goStep3,
+      donationMethod: s.donationMethod,
+      acceptedMethodsLabel,
+
+      openActivityCreate: this.openActivityCreate,
+      openCagnotteCreate: this.openCagnotteCreate,
+
+      waveActive: s.paymentMethods.wave, omActive: s.paymentMethods.om,
+      waveStatusLabel: s.paymentMethods.wave ? 'Actif' : 'Inactif',
+      waveStatusBg: s.paymentMethods.wave ? 'var(--gl-teal-tint)' : 'var(--gl-gray-100)',
+      waveStatusColor: s.paymentMethods.wave ? 'var(--gl-teal-dark)' : 'var(--text-secondary)',
+      omStatusLabel: s.paymentMethods.om ? 'Actif' : 'Inactif',
+      omStatusBg: s.paymentMethods.om ? 'var(--gl-teal-tint)' : 'var(--gl-gray-100)',
+      omStatusColor: s.paymentMethods.om ? 'var(--gl-teal-dark)' : 'var(--text-secondary)',
+      toggleWave: () => this.togglePayment('wave'), toggleOM: () => this.togglePayment('om'),
+
+      stBeneficiaries: s.statsTargets.beneficiaries, stFundsM: s.statsTargets.fundsM,
+      stActivitiesCount: s.statsTargets.activitiesCount, stVolunteers: s.statsTargets.volunteers,
+      onStBeneficiaries: (e) => this.setStatTarget('beneficiaries', e.target.value),
+      onStFundsM: (e) => this.setStatTarget('fundsM', e.target.value),
+      onStActivitiesCount: (e) => this.setStatTarget('activitiesCount', e.target.value),
+      onStVolunteers: (e) => this.setStatTarget('volunteers', e.target.value),
+
+      adminModalOpen: am.open,
+      isAdminModalActivity: am.open && am.type === 'activity',
+      isAdminModalCagnotte: am.open && am.type === 'cagnotte',
+      adminModalTitle: am.mode === 'create'
+        ? (am.type === 'activity' ? 'Nouvelle activité' : 'Nouvelle cagnotte')
+        : (am.type === 'activity' ? "Modifier l'activité" : 'Modifier la cagnotte'),
+      closeAdminModal: this.closeAdminModal,
+      afImgId,
+
+      afTitle: af.title || '', afCategory: af.category || '', afDesc: af.desc || '',
+      afQuote: af.quote || '', afQuoteAuthor: af.quoteAuthor || '', afContexte: af.contexte || '',
+      afActions: af.actions || '', afResultats: af.resultats || '', afPhoto: af.photo || this.photoOptions[0],
+      onAfTitle: (e) => this.setFormField('title', e.target.value),
+      onAfCategory: (e) => this.setFormField('category', e.target.value),
+      onAfDesc: (e) => this.setFormField('desc', e.target.value),
+      onAfQuote: (e) => this.setFormField('quote', e.target.value),
+      onAfQuoteAuthor: (e) => this.setFormField('quoteAuthor', e.target.value),
+      onAfContexte: (e) => this.setFormField('contexte', e.target.value),
+      onAfActions: (e) => this.setFormField('actions', e.target.value),
+      onAfResultats: (e) => this.setFormField('resultats', e.target.value),
+      onAfPhoto: (e) => this.setFormField('photo', e.target.value),
+      saveActivity: this.saveActivity,
+
+      cfTitle: af.title || '', cfDesc: af.desc || '', cfGoal: af.goal ?? '', cfCollected: af.collected ?? '',
+      cfStart: af.start || '', cfEnd: af.end || '', cfStatus: af.status || 'active',
+      cfStatusActiveBg: (af.status || 'active') === 'active' ? 'var(--gl-teal)' : 'var(--gl-gray-100)',
+      cfStatusActiveColor: (af.status || 'active') === 'active' ? '#fff' : 'var(--text-secondary)',
+      cfStatusClosedBg: af.status === 'closed' ? 'var(--gl-black)' : 'var(--gl-gray-100)',
+      cfStatusClosedColor: af.status === 'closed' ? '#fff' : 'var(--text-secondary)',
+      setCfStatusActive: () => this.setFormField('status', 'active'),
+      setCfStatusClosed: () => this.setFormField('status', 'closed'),
+      cfPct: af.goal ? Math.min(100, Math.round(((Number(af.collected) || 0) / Number(af.goal)) * 100)) : 0,
+      onCfTitle: (e) => this.setFormField('title', e.target.value),
+      onCfDesc: (e) => this.setFormField('desc', e.target.value),
+      onCfGoal: (e) => this.setFormField('goal', e.target.value),
+      onCfCollected: (e) => this.setFormField('collected', e.target.value),
+      onCfStart: (e) => this.setFormField('start', e.target.value),
+      onCfEnd: (e) => this.setFormField('end', e.target.value),
+      onCfStatus: (e) => this.setFormField('status', e.target.value),
+      saveCagnotte: this.saveCagnotte,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

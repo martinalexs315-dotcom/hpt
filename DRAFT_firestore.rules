@@ -1,0 +1,96 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitives
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    function incoming() {
+      return request.resource.data;
+    }
+    function existing() {
+      return resource.data;
+    }
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+    function isAdmin() {
+      return isVerified() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Test connection endpoint
+    match /test/{docId} {
+      allow get: if isValidId(docId);
+      allow list, write: if false;
+    }
+
+    // Admins role markers
+    match /admins/{adminId} {
+      allow get: if isValidId(adminId) && isSignedIn() && (request.auth.uid == adminId || isAdmin());
+      allow list: if isAdmin();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Admin profiles
+    match /users/{userId} {
+      allow get: if isValidId(userId) && isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow list: if isAdmin();
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Public readable content, admin writable
+    match /activities/{activityId} {
+      allow get: if isValidId(activityId);
+      allow list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /cagnottes/{cagnotteId} {
+      allow get: if isValidId(cagnotteId);
+      allow list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /stats/{docId} {
+      allow get: if isValidId(docId);
+      allow list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /settings/{docId} {
+      allow get: if isValidId(docId);
+      allow list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Volunteer submissions
+    match /volunteer_applications/{applicationId} {
+      allow get: if isValidId(applicationId) && isAdmin();
+      allow list: if isAdmin();
+      allow create: if isValidId(applicationId)
+        && incoming().name is string && incoming().name.size() > 0 && incoming().name.size() <= 120
+        && incoming().phone is string && incoming().phone.size() > 0 && incoming().phone.size() <= 40
+        && incoming().domain is string && incoming().domain.size() > 0 && incoming().domain.size() <= 100
+        && incoming().availability is string && incoming().availability.size() > 0 && incoming().availability.size() <= 200;
+      allow update, delete: if isAdmin();
+    }
+
+    // Donation records
+    match /donations/{donationId} {
+      allow get: if isValidId(donationId) && isAdmin();
+      allow list: if isAdmin();
+      allow create: if isValidId(donationId)
+        && incoming().amount is number && incoming().amount > 0
+        && incoming().method is string && incoming().method.size() > 0 && incoming().method.size() <= 40;
+      allow update, delete: if isAdmin();
+    }
+  }
+}

@@ -1,11 +1,21 @@
-<div align="center">
+# Hassanates pour tous
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Site de l'association Hassanates pour tous : activités, cagnottes, dons (Wave / Orange Money) et espace administrateur.
 
-  <h1>Built with AI Studio</h2>
+Built with Vite + React, from the Claude Design file `Hassanates pour tous.dc.html` (GainLove design system in `_ds/`).
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## Développement
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+```bash
+npm install
+npm run dev
+```
 
-</div>
+`npm run build` produces the static site in `dist/`. Configure your host to serve `index.html` for all routes (SPA fallback).
+
+## À faire avant la mise en ligne
+
+- Authentification réelle pour l'espace admin (actuellement factice).
+- Backend / base de données : les modifications admin sont stockées dans le `localStorage` du navigateur.
+- Intégration des paiements Wave / Orange Money (bouton et QR code).
+- Envoi du formulaire de contact et de la newsletter.

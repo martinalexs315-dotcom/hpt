@@ -1,0 +1,152 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitives
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    function incoming() {
+      return request.resource.data;
+    }
+    function existing() {
+      return resource.data;
+    }
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+    function isApprovedAdminEmail() {
+      return isSignedIn() && (
+        request.auth.token.email == 'senebirame315@gmail.com' ||
+        request.auth.token.email.matches('.*@hassanates-pourtous\\.org$')
+      );
+    }
+    function isAdmin() {
+      return isApprovedAdminEmail() || (isVerified() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)));
+    }
+    function isTeamSecret() {
+      return 'HPT2026#Solidarite!Baraka';
+    }
+    function isTeamAuthorizedWrite() {
+      return isAdmin() || (
+        request.resource != null &&
+        incoming().keys().hasAny(['_authSecret']) &&
+        incoming()._authSecret == isTeamSecret()
+      );
+    }
+    function isTeamAuthorizedDelete() {
+      return isAdmin() || (
+        resource != null &&
+        existing().keys().hasAny(['_authSecret']) &&
+        existing()._authSecret == isTeamSecret()
+      );
+    }
+
+    // Test connection endpoint
+    match /test/{docId} {
+      allow get: if isValidId(docId);
+      allow list, write: if false;
+    }
+
+    // Admins role markers
+    match /admins/{adminId} {
+      allow get: if isValidId(adminId) && isSignedIn() && (request.auth.uid == adminId || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isValidId(adminId) && (
+        isAdmin() || (request.auth.uid == adminId && incoming().email == request.auth.token.email && incoming().role in ['admin', 'superadmin'])
+      );
+      allow update, delete: if isAdmin();
+    }
+
+    // Admin profiles
+    match /users/{userId} {
+      allow get: if isValidId(userId) && isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isValidId(userId) && (
+        isAdmin() || (request.auth.uid == userId && incoming().email == request.auth.token.email)
+      );
+      allow update, delete: if isAdmin();
+    }
+
+    // Public readable content, admin writable
+    match /activities/{activityId} {
+      allow get, list: if true;
+      allow create, update: if isTeamAuthorizedWrite();
+      allow delete: if true;
+    }
+
+    match /cagnottes/{cagnotteId} {
+      allow get, list: if true;
+      allow create, update: if isTeamAuthorizedWrite();
+      allow delete: if true;
+    }
+
+    match /stats/{docId} {
+      allow get, list: if true;
+      allow create, update: if isTeamAuthorizedWrite();
+      allow delete: if true;
+    }
+
+    match /settings/{docId} {
+      allow get, list: if true;
+      allow create, update: if isTeamAuthorizedWrite();
+      allow delete: if true;
+    }
+
+    // Volunteer submissions: public create with validation, secret or admin read
+    match /volunteer_applications/{applicationId} {
+      allow get, list: if isAdmin() || (resource != null && existing()._authSecret == isTeamSecret());
+      allow create: if isValidId(applicationId)
+        && incoming().name is string && incoming().name.size() > 0 && incoming().name.size() <= 120
+        && incoming().phone is string && incoming().phone.size() > 0 && incoming().phone.size() <= 40
+        && incoming().domain is string && incoming().domain.size() > 0 && incoming().domain.size() <= 100
+        && incoming().availability is string && incoming().availability.size() > 0 && incoming().availability.size() <= 200;
+      allow update: if isTeamAuthorizedWrite() || isTeamAuthorizedDelete();
+      allow delete: if true;
+    }
+
+    // Donation records: public create with validation, secret or admin read
+    match /donations/{donationId} {
+      allow get, list: if isAdmin() || (resource != null && existing()._authSecret == isTeamSecret());
+      allow create: if isValidId(donationId)
+        && incoming().amount is number && incoming().amount > 0
+        && incoming().method is string && incoming().method.size() > 0 && incoming().method.size() <= 40;
+      allow update: if isTeamAuthorizedWrite() || isTeamAuthorizedDelete();
+      allow delete: if true;
+    }
+
+    // Contact messages: public create with validation, secret or admin read
+    match /messages/{messageId} {
+      allow get, list: if isAdmin() || (resource != null && existing()._authSecret == isTeamSecret());
+      allow create: if isValidId(messageId)
+        && incoming().name is string && incoming().name.size() > 0 && incoming().name.size() <= 120
+        && incoming().email is string && incoming().email.size() > 0 && incoming().email.size() <= 150
+        && incoming().message is string && incoming().message.size() > 0 && incoming().message.size() <= 5000;
+      allow update: if isTeamAuthorizedWrite() || isTeamAuthorizedDelete();
+      allow delete: if true;
+    }
+
+    // Newsletter subscribers: public create, admin or team read/delete
+    match /newsletter_subscribers/{subscriberId} {
+      allow get, list: if isAdmin() || (resource != null && existing()._authSecret == isTeamSecret());
+      allow create: if isValidId(subscriberId)
+        && incoming().email is string && incoming().email.size() >= 5 && incoming().email.size() <= 120;
+      allow update: if isTeamAuthorizedWrite() || isTeamAuthorizedDelete();
+      allow delete: if true;
+    }
+
+    // Newsletter email broadcasts sent by admins
+    match /newsletter_broadcasts/{broadcastId} {
+      allow get, list: if isAdmin() || (resource != null && existing()._authSecret == isTeamSecret());
+      allow create, update: if isTeamAuthorizedWrite();
+      allow delete: if true;
+    }
+  }
+}

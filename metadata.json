@@ -1,0 +1,6 @@
+{
+  "name": "Hassanates pour tous",
+  "description": "Association solidaire qui accompagne les familles les plus vulnérables à travers des actions concrètes menées toute l'année.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
